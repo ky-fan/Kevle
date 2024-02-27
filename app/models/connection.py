@@ -12,14 +12,14 @@ class Connection(db.Model):
     categories = db.Column(db.String(255), nullable=False)
     answers = db.Column(db.String(255), nullable=False)
 
-    user = db.relationship("User", back_populates="connection")
+    user = db.relationship("User", back_populates="connections")
 
     def to_dict(self):
-        return{
+        return {
             'id': self.id,
             'userId': self.user_id,
             'title': self.title,
             'categories': self.categories.split(','),
             'answers': self.answers.split(','),
-            'userName': self.user.to_dict().get('username')
+            'authorName': self.user.to_dict().get('username')
         }
