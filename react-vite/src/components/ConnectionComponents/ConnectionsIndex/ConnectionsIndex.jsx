@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import './ConnectionsIndex.css'
 import { useEffect } from 'react'
 import { thunkFetchConnections } from '../../../redux/connection'
-
+import { ConnectionCard } from '../ConnectionCard/ConnectionCard'
 
 export function ConnectionsIndex() {
     const dispatch = useDispatch()
@@ -13,11 +13,11 @@ export function ConnectionsIndex() {
         dispatch(thunkFetchConnections())
     }, [dispatch, connections.length])
     return (
-        <div>
+        <div className='connections-index-container'>
             <h1>Connections</h1>
             <div>
-                <div>
-                    {connections[0]?.title}
+                <div className='connections-index-cards-container'>
+                    {connections.map(connection => <ConnectionCard connection={connection} key={connection.id} />)}
                 </div>
             </div>
         </div>

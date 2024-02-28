@@ -3,6 +3,7 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import ConnectionsIndex from '../components/ConnectionComponents/ConnectionsIndex/ConnectionsIndex';
+import { ConnectionDetailsPage } from '../components/ConnectionComponents/ConnectionDetailsPage/ConnectionDetailsPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "connections",
         element: <ConnectionsIndex />
+      },
+      {
+        path: "connections/:connectionId",
+        element: <ConnectionDetailsPage />
       }
     ],
   },
