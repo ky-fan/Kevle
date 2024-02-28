@@ -4,6 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import ConnectionsIndex from '../components/ConnectionComponents/ConnectionsIndex/ConnectionsIndex';
 import { ConnectionDetailsPage } from '../components/ConnectionComponents/ConnectionDetailsPage/ConnectionDetailsPage';
+import { ConnectionForPage } from '../components/ConnectionComponents/ConnectionFormPage/ConnectionFormPage';
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "connections/:connectionId",
         element: <ConnectionDetailsPage />
+      },
+      {
+        path: "connections/new",
+        element: <ConnectionForPage />
       }
     ],
   },
