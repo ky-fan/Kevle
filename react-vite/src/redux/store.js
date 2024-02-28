@@ -10,7 +10,7 @@ import connectionReducer from "./connection";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  connection: connectionReducer,
+  connections: connectionReducer,
 });
 
 let enhancer;
