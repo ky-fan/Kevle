@@ -23,3 +23,11 @@ class Connection(db.Model):
             'answers': self.answers.split(','),
             'authorName': self.user.to_dict().get('username')
         }
+
+    def to_dict_index_info(self):
+        return{
+            'id': self.id,
+            'userId': self.user_id,
+            'title': self.title,
+            'authorName': self.user.to_dict().get('username')
+        }
