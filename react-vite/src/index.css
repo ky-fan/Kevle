@@ -30,7 +30,12 @@ p {
     --purple: #BB86FC;
     --cyan: #03DAC5;
     --pink: #FF0266;
+    --green: #68ff83;
+    --yellow: #f7ff63;
     --error: #CF6679;
+    --white: #DDDDDD;
+    --gray: #989898;
     --elevation1: #1D1D1D;
     --elevation2: #272727;
+    --elevation16: #383838;
 }

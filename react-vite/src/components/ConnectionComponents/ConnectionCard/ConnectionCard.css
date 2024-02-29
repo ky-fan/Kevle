@@ -26,7 +26,7 @@
 
 .connection-card-link>p:hover {
     text-decoration: underline;
-    color: white;
+    color: var(--white);
 }
 
 .connection-card-header {
@@ -43,6 +43,6 @@
 
 .connection-card-author {
     font-size: small;
-    color: gray;
+    color: var(--gray);
     width: 300px;
 }
