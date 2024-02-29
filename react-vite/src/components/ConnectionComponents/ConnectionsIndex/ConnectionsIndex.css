@@ -1,7 +1,9 @@
-.connection-index-container {
+.connections-index-container {
     padding: 20px;
     box-sizing: border-box;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
 }
 
 .connections-index-cards-container {
@@ -9,4 +11,21 @@
     flex-direction: column;
     max-width: 100%;
     max-height: 100%;
+}
+
+.connections-index-body {
+    max-width: 1482px;
+    width: 100%;
+}
+
+.connections-index-title-container {
+    border-bottom: 1px var(--cyan) solid;
+    margin-bottom: 30px;
+}
+
+
+.connections-index-title-container>h1 {
+    font-size: 52px;
+    margin: 0;
+    padding: 35px 0;
 }

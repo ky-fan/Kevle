@@ -14,10 +14,14 @@ export function ConnectionsIndex() {
     }, [dispatch, connections.length])
     return (
         <div className='connections-index-container'>
-            <h1>Connections</h1>
-            <div>
-                <div className='connections-index-cards-container'>
-                    {connections.map(connection => <ConnectionCard connection={connection} key={connection.id} />)}
+            <div className='connections-index-body'>
+                <div className='connections-index-title-container'>
+                    <h1>Connections</h1>
+                </div>
+                <div>
+                    <div className='connections-index-cards-container'>
+                        {connections.map(connection => <ConnectionCard connection={connection} key={connection.id} />)}
+                    </div>
                 </div>
             </div>
         </div>

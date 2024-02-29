@@ -107,63 +107,99 @@ export function ConnectionFormPage() {
         }
     }
 
+    const populateInvalidForm = () => {
+        setTitle('InvalidTitleBecauseThisTitleIsExactly50Characters!')
+        setCategory1('InvalidCategoryIs30Characters!')
+        setCategory2('InvalidCategoryIs30Characters!')
+        setCategory3('InvalidCategoryIs30Characters!')
+        setCategory4('InvalidCategoryIs30Characters!')
+        setAnswers1('NotUniqueTooLongAndNotEnough')
+        setAnswers2('NotUniqueTooLongAndNotEnough')
+        setAnswers3('NotUniqueTooLongAndNotEnough')
+        setAnswers4('NotUniqueTooLongAndNotEnough')
+    }
+
+    const populateValidForm = () => {
+        setTitle('Valid Game')
+        setCategory1('First Category')
+        setCategory2('Second Category')
+        setCategory3('Third Category')
+        setCategory4('Fourth Category')
+        setAnswers1('Modify 1,These 2,Answers 3,If 4')
+        setAnswers2('You 5,Want 6,To 7,Have 8')
+        setAnswers3('More 9,Robust 10,Testing 11,And 12')
+        setAnswers4('Personalize 13,This 14,Demo 15,Game 16')
+    }
+
     return (
-        <div>
-            <h1>New Connections Game</h1>
-            <form onSubmit={handleSubmit}>
-                {valErrors.uniqueCategories && <p>{valErrors.uniqueCategories}</p>}
-                {valErrors.uniqueAnswers && <p>{valErrors.uniqueAnswers}</p>}
-                <div>
-                    {valErrors.title && <p>{valErrors.title}</p>}
-                    <label htmlFor="title">Title</label>
-                    <input type="text" id='title' name='title' value={title} onChange={(e) => setTitle(e.target.value)} required />
-                </div>
-
-                <div>
-                    {valErrors.category1 && <p>{valErrors.category1}</p>}
-                    <label htmlFor="category1">Category Description</label>
-                    <input type="text" id='category1' name='first category' value={category1} onChange={(e) => setCategory1(e.target.value)} required />
-
-                    {valErrors.answer1Length && <p>{valErrors.answer1Length}</p>}
-                    {valErrors.answer1 && <p>{valErrors.answer1}</p>}
-                    <label htmlFor="answers1">Answers (Comma-separated)</label>
-                    <input type="text" id='answers1' name='first category answers' value={answers1} onChange={(e) => setAnswers1(e.target.value)} required />
-                </div>
-
-                <div>
-                    {valErrors.category2 && <p>{valErrors.category2}</p>}
-                    <label htmlFor="category2">Category Description</label>
-                    <input type="text" id='category2' name='second category' value={category2} onChange={(e) => setCategory2(e.target.value)} required />
-
-                    {valErrors.answer2Length && <p>{valErrors.answer2Length}</p>}
-                    {valErrors.answer2 && <p>{valErrors.answer2}</p>}
-                    <label htmlFor="answers2">Answers (Comma-separated)</label>
-                    <input type="text" id='answers2' name='second category answers' value={answers2} onChange={(e) => setAnswers2(e.target.value)} required />
-                </div>
-
-                <div>
-                    {valErrors.category3 && <p>{valErrors.category3}</p>}
-                    <label htmlFor="category3">Category Description</label>
-                    <input type="text" id='category3' name='third category' value={category3} onChange={(e) => setCategory3(e.target.value)} required />
-
-                    {valErrors.answer3Length && <p>{valErrors.answer3Length}</p>}
-                    {valErrors.answer3 && <p>{valErrors.answer3}</p>}
-                    <label htmlFor="answers3">Answers (Comma-separated)</label>
-                    <input type="text" id='answers3' name='third category answers' value={answers3} onChange={(e) => setAnswers3(e.target.value)} required />
+        <div className='connections-form-container'>
+            <div className='connections-form-body'>
+                <div className='connections-form-title-container'>
+                    <h1>Create a Connections Game</h1>
                 </div>
                 <div>
-                    {valErrors.category4 && <p>{valErrors.category4}</p>}
-                    <label htmlFor="category4">Category Description</label>
-                    <input type="text" id='category4' name='fourth category' value={category4} onChange={(e) => setCategory4(e.target.value)} required />
-
-                    {valErrors.answer4Length && <p>{valErrors.answer4Length}</p>}
-                    {valErrors.answer4 && <p>{valErrors.answer4}</p>}
-                    <label htmlFor="answers4">Answers (Comma-separated)</label>
-                    <input type="text" id='answers4' name='fourth category answers' value={answers4} onChange={(e) => setAnswers4(e.target.value)} required />
+                    <button onClick={populateInvalidForm}>All Validation Errors</button>
+                    <button onClick={populateValidForm}>Generate Valid Game</button>
                 </div>
+                <form onSubmit={handleSubmit}>
+                    <div className='connections-form-title-input-container'>
+                        <div className='connections-form-input-header'>
+                            <label htmlFor="title" className='connections-form-title-input'>Title</label>
+                            <input type="text" id='title' name='title' value={title} onChange={(e) => setTitle(e.target.value)} required placeholder='Title' />
+                        </div>
 
-                <button type='submit'>Generate</button>
-            </form>
+                        <div className='connections-form-title-error-container'>
+                            {valErrors.uniqueCategories && <p>{valErrors.uniqueCategories}</p>}
+                            {valErrors.uniqueAnswers && <p>{valErrors.uniqueAnswers}</p>}
+                            {valErrors.title && <p>{valErrors.title}</p>}
+                        </div>
+                    </div>
+
+                    <div>
+                        {valErrors.category1 && <p>{valErrors.category1}</p>}
+                        <label htmlFor="category1">Category Description</label>
+                        <input type="text" id='category1' name='first category' value={category1} onChange={(e) => setCategory1(e.target.value)} required />
+
+                        {valErrors.answer1Length && <p>{valErrors.answer1Length}</p>}
+                        {valErrors.answer1 && <p>{valErrors.answer1}</p>}
+                        <label htmlFor="answers1">Answers (Comma-separated)</label>
+                        <input type="text" id='answers1' name='first category answers' value={answers1} onChange={(e) => setAnswers1(e.target.value)} required />
+                    </div>
+
+                    <div>
+                        {valErrors.category2 && <p>{valErrors.category2}</p>}
+                        <label htmlFor="category2">Category Description</label>
+                        <input type="text" id='category2' name='second category' value={category2} onChange={(e) => setCategory2(e.target.value)} required />
+
+                        {valErrors.answer2Length && <p>{valErrors.answer2Length}</p>}
+                        {valErrors.answer2 && <p>{valErrors.answer2}</p>}
+                        <label htmlFor="answers2">Answers (Comma-separated)</label>
+                        <input type="text" id='answers2' name='second category answers' value={answers2} onChange={(e) => setAnswers2(e.target.value)} required />
+                    </div>
+
+                    <div>
+                        {valErrors.category3 && <p>{valErrors.category3}</p>}
+                        <label htmlFor="category3">Category Description</label>
+                        <input type="text" id='category3' name='third category' value={category3} onChange={(e) => setCategory3(e.target.value)} required />
+
+                        {valErrors.answer3Length && <p>{valErrors.answer3Length}</p>}
+                        {valErrors.answer3 && <p>{valErrors.answer3}</p>}
+                        <label htmlFor="answers3">Answers (Comma-separated)</label>
+                        <input type="text" id='answers3' name='third category answers' value={answers3} onChange={(e) => setAnswers3(e.target.value)} required />
+                    </div>
+                    <div>
+                        {valErrors.category4 && <p>{valErrors.category4}</p>}
+                        <label htmlFor="category4">Category Description</label>
+                        <input type="text" id='category4' name='fourth category' value={category4} onChange={(e) => setCategory4(e.target.value)} required />
+
+                        {valErrors.answer4Length && <p>{valErrors.answer4Length}</p>}
+                        {valErrors.answer4 && <p>{valErrors.answer4}</p>}
+                        <label htmlFor="answers4">Answers (Comma-separated)</label>
+                        <input type="text" id='answers4' name='fourth category answers' value={answers4} onChange={(e) => setAnswers4(e.target.value)} required />
+                    </div>
+                    <button type='submit'>Generate</button>
+                </form>
+            </div>
         </div>
     )
 }

@@ -1,1 +1,36 @@
 /* TODO: Add sitewide styles */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: var(--black);
+    color: var(--purple);
+}
+
+#root {
+    height: 100%;
+}
+
+#site-body {
+    height: 100%;
+    margin: 0;
+}
+
+* {
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+p {
+    margin: 1% 1% 1% 0;
+}
+
+:root {
+    --black: #121212;
+    --light-black: #1F1B24;
+    --purple: #BB86FC;
+    --cyan: #03DAC5;
+    --pink: #FF0266;
+    --error: #CF6679;
+    --elevation1: #1D1D1D;
+    --elevation2: #272727;
+}
