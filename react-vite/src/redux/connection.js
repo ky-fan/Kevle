@@ -3,6 +3,8 @@ export const LOAD_CONNECTIONS = 'connections/loadConnections'
 export const LOAD_CONNECTION_BY_ID = 'connections/loadConnectionById'
 export const CREATE_CONNECTION = 'connections/createConnection'
 export const UPDATE_CONNECTION = 'connections/updateConnection'
+export const DELETE_CONNECTION = 'connections/deleteConnection'
+export const CLEAR_CONNECTIONS = 'connections/clearConnections'
 
 // action creators
 export const loadConnections = connections => ({
@@ -23,6 +25,15 @@ export const createConnection = connection => ({
 export const updateConnection = connection => ({
     type: UPDATE_CONNECTION,
     connection
+})
+
+export const deleteConnection = connectionId => ({
+    type: DELETE_CONNECTION,
+    connectionId
+})
+
+export const clearConnections = () => ({
+    type: CLEAR_CONNECTIONS
 })
 
 // thunk action creators
@@ -70,6 +81,18 @@ export const thunkUpdateConnection = (connectionId, connection) => async dispatc
     } else return { 'message': 'update connections thunk error' }
 }
 
+export const thunkDeleteConnection = connectionId => async dispatch => {
+    const res = await fetch(`/api/connections/${connectionId}`, {
+        method: 'DELETE'
+    })
+
+    if (res.ok) {
+        const deleteConfirm = await res.json()
+        dispatch(deleteConnection(connectionId))
+        return deleteConfirm
+    } else return { 'message': 'delete connections thunk error' }
+}
+
 const connectionReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_CONNECTIONS: {
@@ -94,6 +117,16 @@ const connectionReducer = (state = {}, action) => {
             const newConnectionState = { ...state }
             newConnectionState[action.connection.id] = action.connection
             return newConnectionState
+        }
+
+        case DELETE_CONNECTION: {
+            const newConnectionState = { ...state }
+            delete newConnectionState[action.connectionId]
+            return newConnectionState
+        }
+
+        case CLEAR_CONNECTIONS: {
+            return {}
         }
 
         default:

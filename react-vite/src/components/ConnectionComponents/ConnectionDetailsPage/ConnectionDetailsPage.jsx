@@ -1,25 +1,39 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './ConnectionDetailsPage.css'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
-import { thunkFetchConnectionById } from '../../../redux/connection'
+import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } from '../../../redux/connection'
 
 
 export function ConnectionDetailsPage() {
     const { connectionId } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const user = useSelector(state => state.session.user)
     const connection = useSelector(state => state.connections[connectionId])
 
-    const isOwner = (parseInt(user?.id === connection?.userId))
+    const isOwner = (parseInt(user?.id) === connection?.userId)
 
     useEffect(() => {
         dispatch(thunkFetchConnectionById(connectionId))
     }, [dispatch, connectionId])
 
-    let categoryArr = connection?.categories
-    let answerArr = connection?.answers
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        navigate(`/connections/${connectionId}/update`)
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        dispatch(thunkDeleteConnection(connectionId)).then(() => {
+            dispatch(clearConnections())
+            navigate('/connections')
+        })
+    }
+
+    const categoryArr = connection?.categories
+    const answerArr = connection?.answers
 
     const category1Answers = answerArr?.slice(0, 4)
     const category2Answers = answerArr?.slice(4, 8)
@@ -49,6 +63,9 @@ export function ConnectionDetailsPage() {
                 <p>Category 4 is {categoryArr && categoryArr[3]}</p>
                 <p>Answers are: {category4Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
             </div>
+
+            {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
+            {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
         </div>
     )
 }

@@ -4,15 +4,17 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
+    <div>
+      <div>
         <NavLink to="/">Home</NavLink>
-      </li>
+        <NavLink to='/connections'>All Connections</NavLink>
+        <NavLink to='/connections/new'>Create Connections Game</NavLink>
+      </div>
 
-      <li>
+      <div>
         <ProfileButton />
-      </li>
-    </ul>
+      </div>
+    </div>
   );
 }
 
