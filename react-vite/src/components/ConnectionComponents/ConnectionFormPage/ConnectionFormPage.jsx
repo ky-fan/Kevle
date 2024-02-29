@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { thunkCreateConnection, thunkFetchConnectionById, thunkUpdateConnection } from '../../../redux/connection'
 
-export function ConnectionForPage() {
+export function ConnectionFormPage() {
     const { connectionId } = useParams()
     const navigate = useNavigate()
-    const dispatch = useDispatch
+    const dispatch = useDispatch()
     const [title, setTitle] = useState("")
     const [category1, setCategory1] = useState("")
     const [category2, setCategory2] = useState("")
@@ -19,7 +19,7 @@ export function ConnectionForPage() {
     const [answers4, setAnswers4] = useState("")
 
     // const [isUpdate, setIsUpdate] = useState(false)
-    const [hasSubmitted, setHasSubmitted] = useState(false)
+    // const [hasSubmitted, setHasSubmitted] = useState(false)
     const [valErrors, setValErrors] = useState({})
     const currentUser = useSelector(state => state.session['user'])
 
@@ -30,7 +30,7 @@ export function ConnectionForPage() {
                 if (!(currentUser.id === oldConnection.userId)) navigate('/connections')
                 setTitle(oldConnection.title)
                 setCategory1(oldConnection.categories[0])
-                setAnswers1(oldConnection.answers.slice(4).join(','))
+                setAnswers1(oldConnection.answers.slice(0, 4).join(','))
 
                 setCategory2(oldConnection.categories[1])
                 setAnswers2(oldConnection.answers.slice(4, 8).join(','))
@@ -50,7 +50,7 @@ export function ConnectionForPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setHasSubmitted(false)
+        // setHasSubmitted(false)
 
         const errObj = {}
         if (title.length >= 50) errObj.title = "Title must be less than 50 characters"
@@ -83,6 +83,14 @@ export function ConnectionForPage() {
             if (answer.length >= 16) errObj.answer4 = "All answers must be less than 16 characters"
         }
 
+        const allAnswersArr = answer1Arr.concat(answer2Arr, answer3Arr, answer4Arr)
+        if (new Set(allAnswersArr).size !== allAnswersArr.length) errObj.uniqueAnswers = "All answers must be unique"
+        console.log(new Set(allAnswersArr), allAnswersArr)
+
+        const allCategoriesArr = [category1, category2, category3, category4]
+        if (new Set(allCategoriesArr).size !== allCategoriesArr.length) errObj.uniqueCategories = "All categories must be unique"
+        console.log(new Set(allCategoriesArr), allCategoriesArr)
+
         if (Object.values(errObj).length) {
             setValErrors(errObj)
         } else {
@@ -90,7 +98,6 @@ export function ConnectionForPage() {
             formData.append('title', title)
             formData.append('categories', `${category1},${category2},${category3},${category4}`)
             formData.append('answers', `${answers1},${answers2},${answers3},${answers4}`)
-            console.log(formData)
 
             if (connectionId) {
                 dispatch(thunkUpdateConnection(connectionId, formData)).then(() => navigate(`/connections/${connectionId}`))
@@ -104,6 +111,8 @@ export function ConnectionForPage() {
         <div>
             <h1>New Connections Game</h1>
             <form onSubmit={handleSubmit}>
+                {valErrors.uniqueCategories && <p>{valErrors.uniqueCategories}</p>}
+                {valErrors.uniqueAnswers && <p>{valErrors.uniqueAnswers}</p>}
                 <div>
                     {valErrors.title && <p>{valErrors.title}</p>}
                     <label htmlFor="title">Title</label>
@@ -158,3 +167,5 @@ export function ConnectionForPage() {
         </div>
     )
 }
+
+export default ConnectionFormPage

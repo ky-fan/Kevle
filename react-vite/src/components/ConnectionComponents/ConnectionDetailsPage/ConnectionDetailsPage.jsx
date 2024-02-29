@@ -21,7 +21,7 @@ export function ConnectionDetailsPage() {
     let categoryArr = connection?.categories
     let answerArr = connection?.answers
 
-    const category1Answers = answerArr?.slice(4)
+    const category1Answers = answerArr?.slice(0, 4)
     const category2Answers = answerArr?.slice(4, 8)
     const category3Answers = answerArr?.slice(8, 12)
     const category4Answers = answerArr?.slice(12, 16)

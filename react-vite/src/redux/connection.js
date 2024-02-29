@@ -45,10 +45,9 @@ export const thunkFetchConnectionById = connectionId => async dispatch => {
 }
 
 export const thunkCreateConnection = connection => async dispatch => {
-    const res = await fetch('/api/connections', {
+    const res = await fetch('/api/connections/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(connection)
+        body: connection
     })
 
     if (res.ok) {
@@ -61,8 +60,7 @@ export const thunkCreateConnection = connection => async dispatch => {
 export const thunkUpdateConnection = (connectionId, connection) => async dispatch => {
     const res = await fetch(`/api/connections${connectionId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(connection)
+        body: connection
     })
 
     if (res.ok) {
@@ -88,7 +86,7 @@ const connectionReducer = (state = {}, action) => {
 
         case CREATE_CONNECTION: {
             const newConnectionState = { ...state }
-            newConnectionState[action.connection.id] = action.track
+            newConnectionState[action.connection.id] = action.connection
             return newConnectionState
         }
 

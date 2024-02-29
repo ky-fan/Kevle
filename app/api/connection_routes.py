@@ -29,12 +29,14 @@ def user_connections_index(user_id):
 
 @connection_routes.route('/', methods = ['POST'])
 @login_required
-def create_new_connection(connection_id):
+def create_new_connection():
     """Create a new Connections game"""
     form = NewConnectionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    print('form data:', form.data)
     if form.validate_on_submit():
+        print('inside validate on submit')
         params = {
             "user_id": current_user.id,
             "title": form.data["title"],
