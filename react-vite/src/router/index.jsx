@@ -33,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "connections/new",
         element: <ConnectionFormPage />
+      },
+      {
+        path: "connections/:connectionId/update",
+        element: <ConnectionFormPage />
       }
     ],
   },

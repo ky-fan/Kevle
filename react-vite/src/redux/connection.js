@@ -58,7 +58,7 @@ export const thunkCreateConnection = connection => async dispatch => {
 }
 
 export const thunkUpdateConnection = (connectionId, connection) => async dispatch => {
-    const res = await fetch(`/api/connections${connectionId}`, {
+    const res = await fetch(`/api/connections/${connectionId}`, {
         method: 'PUT',
         body: connection
     })
