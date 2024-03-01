@@ -3,6 +3,7 @@ import './ConnectionDetailsPage.css'
 import { useNavigate, useParams, NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } from '../../../redux/connection'
+import { ConnectionBoard } from '../ConnectionBoard/ConnectionBoard'
 
 
 export function ConnectionDetailsPage() {
@@ -51,11 +52,11 @@ export function ConnectionDetailsPage() {
                     </NavLink>
                 </div>
 
-                <div className='connections-game-board'>
-
+                <div className='connections-details-game-board'>
+                    <ConnectionBoard connectionId={connectionId} />
                 </div>
 
-                <div>
+                {/* <div>
                     <p>Category 1 is {categoryArr && categoryArr[0]}</p>
                     <p>Answers are: {category1Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
                 </div>
@@ -70,7 +71,7 @@ export function ConnectionDetailsPage() {
                 <div>
                     <p>Category 4 is {categoryArr && categoryArr[3]}</p>
                     <p>Answers are: {category4Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-                </div>
+                </div> */}
 
                 {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
                 {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}

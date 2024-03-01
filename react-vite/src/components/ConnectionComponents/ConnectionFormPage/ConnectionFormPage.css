@@ -128,22 +128,22 @@
 }
 
 #connections-form-green-category {
-    border: 2px var(--green) solid;
+    border: 1px var(--green) solid;
     border-radius: 5px;
 }
 
 #connections-form-yellow-category {
-    border: 2px var(--yellow) solid;
+    border: 1px var(--yellow) solid;
     border-radius: 5px;
 }
 
 #connections-form-cyan-category {
-    border: 2px var(--cyan) solid;
+    border: 1px var(--cyan) solid;
     border-radius: 5px;
 }
 
 #connections-form-pink-category {
-    border: 2px var(--pink) solid;
+    border: 1px var(--pink) solid;
     border-radius: 5px;
 }
 
