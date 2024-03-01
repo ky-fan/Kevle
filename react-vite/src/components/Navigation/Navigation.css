@@ -1,3 +1,115 @@
 .profile-dropdown {
   position: absolute;
+  top: 4vh;
+  right: 3vw;
+  list-style-type: none;
+}
+
+.profile-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  background: var(--elevation2);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.profile-dropdown-menu>li>a {
+  color: black;
+}
+
+.profile-dropdown-item {
+  margin-bottom: 8px;
+}
+
+.profile-logout-button-container {
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: var(--cyan) 2px solid;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-dropdown-guest-item {
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.navbar {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  padding: 10px 20px;
+  transition: 0.5s;
+  box-sizing: border-box;
+  width: 100%;
+  height: 8vh;
+  top: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  height: 100%;
+}
+
+.user-profile-button {
+  height: 40px;
+  width: 40px;
+  color: var(--purple);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.fa-user-circle {
+  font-size: 4vh;
+}
+
+.logo-button {
+  height: 6vh;
+}
+
+/* .nav-buttons li .navigation {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+} */
+.navigation-link {
+  height: 35px;
+  width: 35px;
+  margin: 0 10px 0 0;
+  transition: height .25s ease, width .25s ease, color .25s ease;
+  color: gray;
+}
+
+.navigation-link:hover {
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+  color: white;
+}
+
+.nav-button-icons-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  height: 100%;
+  margin: 0 15px 0 0;
+}
+
+.nav-logo-div {
+  height: 70%;
+}
+
+.nav-logo-div img {
+  height: 100%;
 }
