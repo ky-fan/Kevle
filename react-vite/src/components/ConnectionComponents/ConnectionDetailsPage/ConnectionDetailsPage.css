@@ -1,0 +1,42 @@
+.connections-details-container {
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.connections-details-body {
+    max-width: 1482px;
+    width: 100%;
+}
+
+.connections-details-header {
+    border-bottom: 1px var(--pink) solid;
+    margin-bottom: 30px;
+}
+
+.connections-details-header>h1 {
+    font-size: 52px;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.connections-details-author-link {
+    font-size: 30px;
+    margin: 0;
+    color: var(--purple);
+    text-decoration: none;
+    max-width: 20%;
+}
+
+.connections-details-author-link>p {
+    width: fit-content;
+    margin: 0;
+    padding: 0 0 20px 10px
+}
+
+.connections-details-author-link:hover {
+    color: var(--white);
+    text-decoration: underline;
+}

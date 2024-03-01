@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './ConnectionDetailsPage.css'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, NavLink } from 'react-router-dom'
 import { useEffect } from 'react'
 import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } from '../../../redux/connection'
 
@@ -41,31 +41,40 @@ export function ConnectionDetailsPage() {
     const category4Answers = answerArr?.slice(12, 16)
 
     return (
-        <div className='connection-details-body'>
-            <div>
-                <p>{connection?.title}</p>
-                <p>{connection?.authorName}</p>
-            </div>
+        <div className='connections-details-container'>
+            <div className='connections-details-body'>
+                <div className='connections-details-header'>
+                    <h1>{connection?.title}</h1>
 
-            <div>
-                <p>Category 1 is {categoryArr && categoryArr[0]}</p>
-                <p>Answers are: {category1Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-            </div>
-            <div>
-                <p>Category 2 is {categoryArr && categoryArr[1]}</p>
-                <p>Answers are: {category2Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-            </div>
-            <div>
-                <p>Category 3 is {categoryArr && categoryArr[2]}</p>
-                <p>Answers are: {category3Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-            </div>
-            <div>
-                <p>Category 4 is {categoryArr && categoryArr[3]}</p>
-                <p>Answers are: {category4Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-            </div>
+                    <NavLink to={`/users/${connection?.userId}`} className="connections-details-author-link">
+                        <p>{connection?.authorName}</p>
+                    </NavLink>
+                </div>
 
-            {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
-            {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
+                <div className='connections-game-board'>
+
+                </div>
+
+                <div>
+                    <p>Category 1 is {categoryArr && categoryArr[0]}</p>
+                    <p>Answers are: {category1Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
+                </div>
+                <div>
+                    <p>Category 2 is {categoryArr && categoryArr[1]}</p>
+                    <p>Answers are: {category2Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
+                </div>
+                <div>
+                    <p>Category 3 is {categoryArr && categoryArr[2]}</p>
+                    <p>Answers are: {category3Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
+                </div>
+                <div>
+                    <p>Category 4 is {categoryArr && categoryArr[3]}</p>
+                    <p>Answers are: {category4Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
+                </div>
+
+                {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
+                {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
+            </div>
         </div>
     )
 }
