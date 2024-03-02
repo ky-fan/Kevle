@@ -3,10 +3,10 @@
     gap: 4px;
     border: none;
     border-radius: 4px;
-    background: gray;
-    color: white;
+    background: var(--gray);
+    color: var(--white);
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: 20px;
     cursor: pointer;
     outline-offset: 4px;
 }
