@@ -10,7 +10,7 @@ export function ConnectionBoard({ connection }) {
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
-    const [gameState, setGameState] = useState([2, 1, 0, 0])
+    const [gameState, setGameState] = useState([1, 0, 0, 0])
 
     const [guessArr, setGuessArr] = useState([])
 
@@ -32,6 +32,8 @@ export function ConnectionBoard({ connection }) {
             return returnArr
         }
     }
+    const answerArr = connection.answers
+
 
     useEffect(() => {
         setShuffledArr(shuffle(connection.answers))
@@ -39,27 +41,27 @@ export function ConnectionBoard({ connection }) {
 
 
     useEffect(() => {
-        setDisplayArr(shuffledArr)
-    }, [connection, shuffledArr])
+        function filteredWords() {
+            const filteredWordsArr = []
+            if (gameState.includes(1) && answerArr) filteredWordsArr.push(...answerArr.slice(0, 4))
+            if (gameState.includes(2) && answerArr) filteredWordsArr.push(...answerArr.slice(4, 8))
+            if (gameState.includes(3) && answerArr) filteredWordsArr.push(...answerArr.slice(8, 12))
+            if (gameState.includes(4) && answerArr) filteredWordsArr.push(...answerArr.slice(12, 16))
 
-    useEffect(() => {
+            return filteredWordsArr
+        }
+        setDisplayArr(shuffledArr.filter(word => !filteredWords().includes(word)))
+    }, [connection, shuffledArr, gameState, answerArr])
 
-        setDisplayArr(shuffledArr.filter(word => filteredWords().includes(word)))
-    }, [gameState, shuffledArr, filteredWords])
+    // useEffect(() => {
+
+    //     setDisplayArr(shuffledArr.filter(word => filteredWords().includes(word)))
+    // }, [gameState, shuffledArr, filteredWords])
 
 
-    const answerArr = connection.answers
+
+
     if (!answerArr) return
-
-    const filteredWords = useCallback(() => {
-        const filteredWordsArr = []
-        if (gameState.includes(1)) filteredWordsArr.push(...answerArr.slice(0, 4))
-        if (gameState.includes(2)) filteredWordsArr.push(...answerArr.slice(4, 8))
-        if (gameState.includes(3)) filteredWordsArr.push(...answerArr.slice(8, 12))
-        if (gameState.includes(4)) filteredWordsArr.push(...answerArr.slice(12, 16))
-
-        return filteredWordsArr
-    })
 
 
 
@@ -84,7 +86,7 @@ export function ConnectionBoard({ connection }) {
 
     return (
         <div className='connection-board-container'>
-            {console.log('filtered', filteredWords())}
+            {/* {console.log('filtered', filteredWords())} */}
             {/* {console.log('shuffled array ', shuffledArr)}
             {console.log('display array ', displayArr)} */}
             <div className='connection-board-row'>
