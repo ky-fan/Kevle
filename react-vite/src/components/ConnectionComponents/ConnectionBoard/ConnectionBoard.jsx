@@ -50,8 +50,9 @@ export function ConnectionBoard({ connection }) {
 
             return filteredWordsArr
         }
+        if (!shuffledArr) return
         setDisplayArr(shuffledArr.filter(word => !filteredWords().includes(word)))
-    }, [connection, shuffledArr, gameState, answerArr])
+    }, [connection, shuffledArr, gameState, answerArr, guessArr])
 
     // useEffect(() => {
 
@@ -59,12 +60,7 @@ export function ConnectionBoard({ connection }) {
     // }, [gameState, shuffledArr, filteredWords])
 
 
-
-
     if (!answerArr) return
-
-
-
     // console.log("this is shuffled ", shuffledArr)
     // console.log(connection.answers)
 
@@ -89,24 +85,26 @@ export function ConnectionBoard({ connection }) {
             {/* {console.log('filtered', filteredWords())} */}
             {/* {console.log('shuffled array ', shuffledArr)}
             {console.log('display array ', displayArr)} */}
+            {console.log('guessArr ', guessArr)}
+            {console.log('displayArr', displayArr)}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
-                {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} />))}
 
             </div>
             <div className='connection-board-row'>
                 {gameState[1] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[1]]} />}
-                {gameState[1] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[1] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} />))}
 
             </div>
             <div className='connection-board-row'>
                 {gameState[2] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[2]]} />}
-                {gameState[2] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[2] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} />))}
 
             </div>
             <div className='connection-board-row'>
                 {gameState[3] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[3]]} />}
-                {gameState[3] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[3] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} />))}
 
             </div>
             {/* {answerArr?.map(word => (
