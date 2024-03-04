@@ -41,6 +41,8 @@ export function ConnectionDetailsPage() {
     const category3Answers = answerArr?.slice(8, 12)
     const category4Answers = answerArr?.slice(12, 16)
 
+    if (!connection) return
+
     return (
         <div className='connections-details-container'>
             <div className='connections-details-body'>
@@ -53,7 +55,7 @@ export function ConnectionDetailsPage() {
                 </div>
 
                 <div className='connections-details-game-board'>
-                    <ConnectionBoard connectionId={connectionId} />
+                    <ConnectionBoard connection={connection} />
                 </div>
 
                 {/* <div>

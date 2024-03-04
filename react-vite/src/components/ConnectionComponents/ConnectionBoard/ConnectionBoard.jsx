@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 
-export function ConnectionBoard({ connectionId }) {
-    const connection = useSelector(state => state.connections[connectionId])
+export function ConnectionBoard({ connection }) {
 
     const [numGuesses, setNumGuesses] = useState(0)
 
@@ -19,37 +18,41 @@ export function ConnectionBoard({ connectionId }) {
     const [shuffledArr, setShuffledArr] = useState([])
 
     function shuffle(arr) {
-
-        const returnArr = arr.slice(0)
-        for (let i = returnArr.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1))
-            let temp = returnArr[i]
-            returnArr[i] = returnArr[j]
-            returnArr[j] = temp
+        if (arr) {
+            const returnArr = arr.slice(0)
+            for (let i = returnArr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1))
+                let temp = returnArr[i]
+                returnArr[i] = returnArr[j]
+                returnArr[j] = temp
+            }
+            return returnArr
         }
-        return returnArr
     }
-
-    const answerArr = connection?.answers
 
     useEffect(() => {
-        setShuffledArr(connection?.answers)
-        if (connection) setShuffledArr(shuffle(connection.answers))
+        setShuffledArr(connection.answers)
+        setShuffledArr(shuffle(connection.answers))
     }, [connection])
 
+    const answerArr = connection.answers
 
-    console.log("this is shuffled ", shuffledArr)
+    // console.log("this is shuffled ", shuffledArr)
+    // console.log(connection.answers)
 
-    const connectionArr = connection?.categories
+    if (!connection.categories) return
 
-    if (connection) {
-        const categoryObj = {}
-        categoryObj.category1 = [1, connectionArr[0]].concat(answerArr?.slice(0, 4))
-        categoryObj.category2 = [2, connectionArr[1]].concat(answerArr?.slice(4, 8))
-        categoryObj.category3 = [3, connectionArr[2]].concat(answerArr?.slice(8, 12))
-        categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
+    const connectionArr = connection.categories
 
-    }
+    // console.log('these are categories', connection.categories)
+
+    const categoryObj = {}
+    categoryObj.category1 = [1, connectionArr[0]].concat(answerArr?.slice(0, 4))
+    categoryObj.category2 = [2, connectionArr[1]].concat(answerArr?.slice(4, 8))
+    categoryObj.category3 = [3, connectionArr[2]].concat(answerArr?.slice(8, 12))
+    categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
+
+
     const shuffledFirstRow = shuffledArr?.slice(0, 4)
     // Stores [categoryNumber, category, answer1, answer2, answer3, answer4] to pass into ConnectionAnswerBar
 
