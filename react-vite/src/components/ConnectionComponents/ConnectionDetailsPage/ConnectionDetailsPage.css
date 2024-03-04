@@ -40,3 +40,8 @@
     color: var(--white);
     text-decoration: underline;
 }
+
+.connections-details-game-board {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,15 @@
+.connection-board-container {
+    width: 70vw;
+    height: 60vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.connection-board-row {
+    height: 25%;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px red solid;
+    display: flex;
+}
