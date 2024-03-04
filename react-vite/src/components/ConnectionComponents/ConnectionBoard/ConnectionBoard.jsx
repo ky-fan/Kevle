@@ -6,7 +6,7 @@ import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 
 export function ConnectionBoard({ connection }) {
 
-    const [numGuesses, setNumGuesses] = useState(0)
+    const [numWrongGuesses, setNumWrongGuesses] = useState(0)
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
@@ -87,7 +87,7 @@ export function ConnectionBoard({ connection }) {
             {/* {console.log('shuffled array ', shuffledArr)}
             {console.log('display array ', displayArr)} */}
             {console.log('guessArr ', guessArr)}
-            {console.log('displayArr', displayArr)}
+            {/* {console.log('displayArr', displayArr)} */}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}

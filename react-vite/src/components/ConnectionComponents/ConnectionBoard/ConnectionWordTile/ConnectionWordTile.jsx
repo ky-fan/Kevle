@@ -3,35 +3,46 @@ import './ConnectionWordTile.css'
 
 export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
 
-
-    const [isSelected, setIsSelected] = useState('')
+    const [isSelected, setIsSelected] = useState(guessArr.includes(word))
     const [disableClick, setDisableClick] = useState('')
 
-    function handleClick(e) {
+
+
+    const handleClick = e => {
         e.preventDefault()
 
-        if ((guessArr.length <= 3) && !(guessArr.includes(word))) {
-            setGuessArr(guessArr => [...guessArr, word])
-            setIsSelected('connections-word-tile-selected')
-            console.log('isSelected is', isSelected)
+        if (isSelected) {
+            const newGuessArr = (guessArr.filter(ele => ele !== word))
+            setGuessArr(newGuessArr)
+            setIsSelected(false)
         } else {
-            setGuessArr(guessArr.filter(ele => ele !== word))
-            setIsSelected('')
+            if (guessArr.length !== 4) {
+                setGuessArr(guessArr => [...guessArr, word])
+                setIsSelected(true)
+            }
         }
+
+        // if ((guessArr.length <= 3) && !(guessArr.includes(word))) {
+        //     setGuessArr(guessArr => [...guessArr, word])
+        //     setIsSelected('connections-word-tile-selected')
+        // } else {
+        //     setGuessArr(guessArr.filter(ele => ele !== word))
+        //     setIsSelected('')
+        // }
     }
 
-    useEffect(() => {
 
-        if (guessArr.length === 4 && !(guessArr.includes(word))) {
+    useEffect(() => {
+        if (guessArr.length === 4 && !(isSelected)) {
             setDisableClick('no-click')
         } else {
             setDisableClick('')
         }
-    }, [guessArr, word])
+    }, [guessArr, word, isSelected])
 
     return (
         <div className='connections-word-tile-container' >
-            <div className={`connections-word-tile ${isSelected} ${disableClick}`} onClick={handleClick}>
+            <div className={`connections-word-tile ${disableClick}`} onClick={handleClick}>
                 <h2>{word}</h2>
             </div>
         </div>
