@@ -1,1 +1,4 @@
-connection-answer-bar-container {}
+.connection-answer-bar-container {
+    width: 100%;
+    height: 100%;
+}

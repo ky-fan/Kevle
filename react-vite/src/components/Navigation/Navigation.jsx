@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import { useSelector } from "react-redux";
 
 function Navigation() {
+  const user = useSelector(state => state.session.user)
+
   return (
     <div className="navbar">
       <div className="nav-logo-div">
@@ -13,7 +16,7 @@ function Navigation() {
       <div className="nav-buttons">
         <div className="nav-buttons-icons-div">
           <NavLink to='/connections'>All Connections</NavLink>
-          <NavLink to='/connections/new'>Create Connections Game</NavLink>
+          {user && <NavLink to='/connections/new'>Create Connections Game</NavLink>}
         </div>
         <ProfileButton className="profile-button" title="User-Options" />
       </div>

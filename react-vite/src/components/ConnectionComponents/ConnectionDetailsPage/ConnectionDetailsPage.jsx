@@ -33,13 +33,13 @@ export function ConnectionDetailsPage() {
         })
     }
 
-    const categoryArr = connection?.categories
-    const answerArr = connection?.answers
+    // const categoryArr = connection?.categories
+    // const answerArr = connection?.answers
 
-    const category1Answers = answerArr?.slice(0, 4)
-    const category2Answers = answerArr?.slice(4, 8)
-    const category3Answers = answerArr?.slice(8, 12)
-    const category4Answers = answerArr?.slice(12, 16)
+    // const category1Answers = answerArr?.slice(0, 4)
+    // const category2Answers = answerArr?.slice(4, 8)
+    // const category3Answers = answerArr?.slice(8, 12)
+    // const category4Answers = answerArr?.slice(12, 16)
 
     if (!connection) return
 

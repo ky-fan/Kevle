@@ -1,7 +1,7 @@
 import ConnectionWordTile from './ConnectionWordTile/ConnectionWordTile'
 import './ConnectionBoard.css'
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 
 export function ConnectionBoard({ connection }) {
@@ -10,12 +10,15 @@ export function ConnectionBoard({ connection }) {
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
-    const [gameState, setGameState] = useState([0, 0, 0, 0])
+    const [gameState, setGameState] = useState([2, 1, 0, 0])
 
-    const [guess, setGuess] = useState([])
+    const [guessArr, setGuessArr] = useState([])
 
     // Contains the randomized answers
     const [shuffledArr, setShuffledArr] = useState([])
+
+    // Copy of shuffledArr to be mutated for display
+    const [displayArr, setDisplayArr] = useState([])
 
     function shuffle(arr) {
         if (arr) {
@@ -31,11 +34,34 @@ export function ConnectionBoard({ connection }) {
     }
 
     useEffect(() => {
-        setShuffledArr(connection.answers)
         setShuffledArr(shuffle(connection.answers))
     }, [connection])
 
+
+    useEffect(() => {
+        setDisplayArr(shuffledArr)
+    }, [connection, shuffledArr])
+
+    useEffect(() => {
+
+        setDisplayArr(shuffledArr.filter(word => filteredWords().includes(word)))
+    }, [gameState, shuffledArr, filteredWords])
+
+
     const answerArr = connection.answers
+    if (!answerArr) return
+
+    const filteredWords = useCallback(() => {
+        const filteredWordsArr = []
+        if (gameState.includes(1)) filteredWordsArr.push(...answerArr.slice(0, 4))
+        if (gameState.includes(2)) filteredWordsArr.push(...answerArr.slice(4, 8))
+        if (gameState.includes(3)) filteredWordsArr.push(...answerArr.slice(8, 12))
+        if (gameState.includes(4)) filteredWordsArr.push(...answerArr.slice(12, 16))
+
+        return filteredWordsArr
+    })
+
+
 
     // console.log("this is shuffled ", shuffledArr)
     // console.log(connection.answers)
@@ -46,6 +72,7 @@ export function ConnectionBoard({ connection }) {
 
     // console.log('these are categories', connection.categories)
 
+    // Stores [categoryNumber, category, answer1, answer2, answer3, answer4] to pass into ConnectionAnswerBar
     const categoryObj = {}
     categoryObj.category1 = [1, connectionArr[0]].concat(answerArr?.slice(0, 4))
     categoryObj.category2 = [2, connectionArr[1]].concat(answerArr?.slice(4, 8))
@@ -53,29 +80,32 @@ export function ConnectionBoard({ connection }) {
     categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
 
 
-    const shuffledFirstRow = shuffledArr?.slice(0, 4)
-    // Stores [categoryNumber, category, answer1, answer2, answer3, answer4] to pass into ConnectionAnswerBar
-
-    // const randomAnswers = shuffle(answerArr)
-
+    if (!displayArr) return
 
     return (
         <div className='connection-board-container'>
+            {console.log('filtered', filteredWords())}
+            {/* {console.log('shuffled array ', shuffledArr)}
+            {console.log('display array ', displayArr)} */}
             <div className='connection-board-row'>
-                {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category${gameState[0]}`]} />}
-                {gameState[0] === 0 && shuffledFirstRow?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
+                {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+
             </div>
             <div className='connection-board-row'>
-                {gameState[1] > 0 && <ConnectionAnswerBar category={categoryObj[`category${gameState[1]}`]} />}
-                {gameState[0] === 0 && shuffledArr?.slice(4, 8).map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[1] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[1]]} />}
+                {gameState[1] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+
             </div>
             <div className='connection-board-row'>
-                {gameState[2] > 0 && <ConnectionAnswerBar category={categoryObj[`category${gameState[2]}`]} />}
-                {gameState[0] === 0 && shuffledArr?.slice(8, 12).map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[2] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[2]]} />}
+                {gameState[2] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+
             </div>
             <div className='connection-board-row'>
-                {gameState[3] > 0 && <ConnectionAnswerBar category={categoryObj[`category${gameState[3]}`]} />}
-                {gameState[0] === 0 && shuffledArr?.slice(12, 16).map(word => (<ConnectionWordTile key={word} word={word} />))}
+                {gameState[3] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[3]]} />}
+                {gameState[3] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} />))}
+
             </div>
             {/* {answerArr?.map(word => (
                 <ConnectionWordTile key={word} word={word} />
