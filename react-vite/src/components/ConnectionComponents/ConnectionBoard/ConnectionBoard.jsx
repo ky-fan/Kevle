@@ -144,7 +144,6 @@ export function ConnectionBoard({ connection }) {
 
     return (
         <div className='connection-board-container'>
-            {console.log(connection.answers)}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}

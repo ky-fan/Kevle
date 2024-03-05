@@ -2,14 +2,37 @@ import './ConnectionAnswerBar.css'
 
 export function ConnectionAnswerBar({ category }) {
 
+    // Takes in [categoryNumber, category, answer1, answer2, answer3, answer4]
     const categoryColorId = category[0]
+    let categoryColor = ""
 
-    // switch
+    switch (categoryColorId) {
+        case 1: {
+            categoryColor = "yellow-answer-bar"
+            break
+        }
+        case 2: {
+            categoryColor = "green-answer-bar"
+            break
+        }
+        case 3: {
+            categoryColor = "cyan-answer-bar"
+            break
+        }
+        case 4: {
+            categoryColor = "pink-answer-bar"
+            break
+        }
+        default:
+            break
+    }
 
     return (
-        <div className={`connection-answer-bar-container`}>
-            <h2>{category[1]} </h2>
-            <p>{`${category[2]}, ${category[3]}, ${category[4]}, ${category[5]}`}</p>
+        <div className={`connection-answer-bar-container`} id={categoryColor}>
+            <div className='connection-answer-bar-tile'>
+                <h2>{category[1]} </h2>
+                <p>{`${category[2]}, ${category[3]}, ${category[4]}, ${category[5]}`}</p>
+            </div>
 
         </div>
     )
