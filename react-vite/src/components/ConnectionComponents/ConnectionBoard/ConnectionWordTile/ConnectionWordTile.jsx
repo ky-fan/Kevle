@@ -6,8 +6,6 @@ export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
     const [isSelected, setIsSelected] = useState(guessArr.includes(word))
     const [disableClick, setDisableClick] = useState('')
 
-
-
     const handleClick = e => {
         e.preventDefault()
 
@@ -21,14 +19,6 @@ export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
                 setIsSelected(true)
             }
         }
-
-        // if ((guessArr.length <= 3) && !(guessArr.includes(word))) {
-        //     setGuessArr(guessArr => [...guessArr, word])
-        //     setIsSelected('connections-word-tile-selected')
-        // } else {
-        //     setGuessArr(guessArr.filter(ele => ele !== word))
-        //     setIsSelected('')
-        // }
     }
 
 
@@ -42,7 +32,7 @@ export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
 
     return (
         <div className='connections-word-tile-container' >
-            <div className={`connections-word-tile ${disableClick}`} onClick={handleClick}>
+            <div className={`connections-word-tile ${disableClick}`} id={isSelected ? 'connections-word-tile-selected' : ''} onClick={handleClick}>
                 <h2>{word}</h2>
             </div>
         </div>

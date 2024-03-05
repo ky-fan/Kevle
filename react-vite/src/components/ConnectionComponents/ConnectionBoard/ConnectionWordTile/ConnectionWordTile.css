@@ -27,9 +27,8 @@
     align-items: center;
 }
 
-.connections-word-tile-selected {
-    color: var(--white) !important;
-    background: var(--elevation1) !important;
+#connections-word-tile-selected {
+    background: var(--purple);
 }
 
 .no-click {

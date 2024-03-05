@@ -10,7 +10,7 @@ export function ConnectionBoard({ connection }) {
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
-    const [gameState, setGameState] = useState([1, 0, 0, 0])
+    const [gameState, setGameState] = useState([0, 0, 0, 0])
 
     // Selected words for each guess, need four words to submit
     const [guessArr, setGuessArr] = useState([])
@@ -39,7 +39,6 @@ export function ConnectionBoard({ connection }) {
     useEffect(() => {
         setShuffledArr(shuffle(connection.answers))
     }, [connection])
-
 
     useEffect(() => {
         function filteredWords() {
@@ -78,14 +77,43 @@ export function ConnectionBoard({ connection }) {
     categoryObj.category3 = [3, connectionArr[2]].concat(answerArr?.slice(8, 12))
     categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
 
+    const answerObj = {}
+    answerObj[1] = new Set(answerArr.slice(0, 4))
+    answerObj[2] = new Set(answerArr.slice(4, 8))
+    answerObj[3] = new Set(answerArr.slice(8, 12))
+    answerObj[4] = new Set(answerArr.slice(12, 16))
+
+    const submitGuess = e => {
+        e.preventDefault()
+
+        const guessSet = new Set(guessArr)
+        // if no solved rows
+        if (gameState[0] === 0) {
+
+            // check every answer set
+            for (let answerSetNum in answerObj) {
+
+                // check if guess set has every word in the answer set
+                if ([...guessSet].every(word => answerObj[answerSetNum].has(word))) {
+
+                    //if correct then updated gamestate
+                    console.log(answerSetNum)
+                    setGameState([answerSetNum, 0, 0, 0])
+                    setDisplayArr(shuffledArr.filter(word => !(guessSet.has(word))))
+                    console.log('filter?', shuffledArr.filter(word => !(guessSet.has(word))))
+                    console.log(displayArr)
+                }
+            }
+        }
+
+    }
+
 
     if (!displayArr) return
 
     return (
         <div className='connection-board-container'>
             {/* {console.log('filtered', filteredWords())} */}
-            {/* {console.log('shuffled array ', shuffledArr)}
-            {console.log('display array ', displayArr)} */}
             {console.log('guessArr ', guessArr)}
             {/* {console.log('displayArr', displayArr)} */}
             <div className='connection-board-row'>
@@ -111,6 +139,10 @@ export function ConnectionBoard({ connection }) {
             {/* {answerArr?.map(word => (
                 <ConnectionWordTile key={word} word={word} />
             ))} */}
+
+            <div className='connection-board-button-container'>
+                <button onClick={submitGuess} className={`connection-board-submit-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>
+            </div>
         </div>
     )
 }
