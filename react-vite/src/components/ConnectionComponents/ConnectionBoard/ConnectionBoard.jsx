@@ -1,7 +1,7 @@
 import ConnectionWordTile from './ConnectionWordTile/ConnectionWordTile'
 import './ConnectionBoard.css'
 import { useSelector } from 'react-redux'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 
 export function ConnectionBoard({ connection }) {
@@ -11,6 +11,9 @@ export function ConnectionBoard({ connection }) {
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
     const [gameState, setGameState] = useState([0, 0, 0, 0])
+
+    // Tracks whether the game is won, lost, or being played
+    const [gameStatus, setGameStatus] = useState('playing')
 
     // Selected words for each guess, need four words to submit
     const [guessArr, setGuessArr] = useState([])
@@ -58,13 +61,33 @@ export function ConnectionBoard({ connection }) {
 
     // Implement useEffect to check game status
     useEffect(() => {
-        if (numWrongGuesses >= 4) alert('UH OH, YOU LOST')
-        if (gameState[3] > 0) alert('YOU WON')
-    })
+        if (gameState[3] > 0) {
+            setGameStatus('won')
+            alert('YOU WON (This will be replaced by a modal)')
+        }
 
-    // shuffle/deselect all buttons
 
+        if (numWrongGuesses >= 4) {
+            const unsolvedCategories = [1, 2, 3, 4].filter(num => !(gameState.includes(num)))
+            console.log('unsolvedCatgories', unsolvedCategories)
+            for (let i = 0; i < gameState.length; i++) {
+                if (gameState[i] === 0) {
+                    const newGameState = gameState
+                    newGameState[i] = unsolvedCategories.splice(0, 1)
+                    setGameState[newGameState]
+                }
+            }
+            setGuessArr([])
+            setGameStatus('lost')
+            alert('UH OH, YOU LOST (This will be replaced by a modal)')
+            return
+        }
 
+    }, [gameState, numWrongGuesses])
+
+    // Style answer bar
+    // Win/loss modals
+    // how to play modal
 
     if (!answerArr) return
 
@@ -134,12 +157,11 @@ export function ConnectionBoard({ connection }) {
                 {gameState[3] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
 
             </div>
-            {/* {answerArr?.map(word => (
-                <ConnectionWordTile key={word} word={word} />
-            ))} */}
 
             <div className='connection-board-button-container'>
-                <p>{numWrongGuesses} Incorrect Guesses</p>
+                <p>{4 - numWrongGuesses} Lives Remaining</p>
+                <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-submit-button`} id={gameStatus === 'playing' ? "" : "no-click"}>Shuffle</button>
+                <button onClick={() => setGuessArr([])} className={`connection-board-submit-button`} id={guessArr.length > 0 ? "" : "no-click"}>Deselect All</button>
                 <button onClick={submitGuess} className={`connection-board-submit-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>
             </div>
         </div>
