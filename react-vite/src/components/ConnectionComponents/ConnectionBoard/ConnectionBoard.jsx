@@ -52,6 +52,7 @@ export function ConnectionBoard({ connection }) {
         }
         filteredWords()
 
+        if (!shuffledArr) return
         setDisplayArr(shuffledArr.filter(word => !(filteredWordsArr.includes(word))))
     }, [connection, shuffledArr, gameState, answerArr, guessArr])
 
