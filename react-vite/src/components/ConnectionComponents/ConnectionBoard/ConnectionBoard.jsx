@@ -10,7 +10,7 @@ export function ConnectionBoard({ connection }) {
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
-    const [gameState, setGameState] = useState([2, 0, 0, 0])
+    const [gameState, setGameState] = useState([0, 0, 0, 0])
 
     // Selected words for each guess, need four words to submit
     const [guessArr, setGuessArr] = useState([])
@@ -41,17 +41,18 @@ export function ConnectionBoard({ connection }) {
     }, [connection])
 
     useEffect(() => {
+        let filteredWordsArr = []
         function filteredWords() {
-            const filteredWordsArr = []
-            if (gameState.includes(1) && answerArr) filteredWordsArr.push(...answerArr.slice(0, 4))
-            if (gameState.includes(2) && answerArr) filteredWordsArr.push(...answerArr.slice(4, 8))
-            if (gameState.includes(3) && answerArr) filteredWordsArr.push(...answerArr.slice(8, 12))
-            if (gameState.includes(4) && answerArr) filteredWordsArr.push(...answerArr.slice(12, 16))
+            if (gameState.includes(1)) filteredWordsArr.push(...answerArr.slice(0, 4))
+            if (gameState.includes(2)) filteredWordsArr.push(...answerArr.slice(4, 8))
+            if (gameState.includes(3)) filteredWordsArr.push(...answerArr.slice(8, 12))
+            if (gameState.includes(4)) filteredWordsArr.push(...answerArr.slice(12, 16))
 
             return filteredWordsArr
         }
-        if (!shuffledArr) return
-        setDisplayArr(shuffledArr.filter(word => !filteredWords().includes(word)))
+        filteredWords()
+
+        setDisplayArr(shuffledArr.filter(word => !(filteredWordsArr.includes(word))))
     }, [connection, shuffledArr, gameState, answerArr, guessArr])
 
     // useEffect(() => {
@@ -77,6 +78,7 @@ export function ConnectionBoard({ connection }) {
     categoryObj.category3 = [3, connectionArr[2]].concat(answerArr?.slice(8, 12))
     categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
 
+    // Stores sets containing each set of answers for comparison to guesses
     const answerObj = {}
     answerObj[1] = new Set(answerArr.slice(0, 4))
     answerObj[2] = new Set(answerArr.slice(4, 8))
@@ -90,18 +92,15 @@ export function ConnectionBoard({ connection }) {
         // if no solved rows
         if (gameState[0] === 0) {
 
-            // check every answer set
+            // iterate through every answer set
             for (let answerSetNum in answerObj) {
 
                 // check if guess set has every word in the answer set
                 if ([...guessSet].every(word => answerObj[answerSetNum].has(word))) {
 
-                    //if correct then updated gamestate
-                    console.log(answerSetNum)
-                    setGameState([answerSetNum, 0, 0, 0])
-                    setDisplayArr(shuffledArr.filter(word => !(guessSet.has(word))))
-                    console.log('filter?', shuffledArr.filter(word => !(guessSet.has(word))))
-                    console.log(displayArr)
+                    //if correct then updated gamestate then clear guesses
+                    setGameState([parseInt(answerSetNum), 0, 0, 0])
+                    setGuessArr([])
                     return
                 }
             }
@@ -119,11 +118,8 @@ export function ConnectionBoard({ connection }) {
                     //if correct then updated gamestate
                     console.log(answerSetNum)
                     const newGameState = [...gameState]
-                    newGameState[1] = answerSetNum
+                    newGameState[1] = parseInt(answerSetNum)
                     setGameState(newGameState)
-                    setDisplayArr(shuffledArr.filter(word => !(guessSet.has(word))))
-                    console.log('filter?', shuffledArr.filter(word => !(guessSet.has(word))))
-                    console.log(displayArr)
                 }
             }
         }
@@ -136,8 +132,8 @@ export function ConnectionBoard({ connection }) {
     return (
         <div className='connection-board-container'>
             {/* {console.log('filtered', filteredWords())} */}
-            {console.log('guessArr ', guessArr)}
-            {/* {console.log('displayArr', displayArr)} */}
+            {/* {console.log('guessArr ', guessArr)} */}
+            {console.log('displayArr', displayArr)}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
