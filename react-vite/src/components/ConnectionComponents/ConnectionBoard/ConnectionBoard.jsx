@@ -137,12 +137,14 @@ export function ConnectionBoard({ connection }) {
                 }
             }
         }
+        // Increment the number of incorrect guesses if there's no match
         let guesses = numWrongGuesses + 1
         setNumWrongGuesses(guesses)
     }
 
     return (
         <div className='connection-board-container'>
+            {console.log(connection.answers)}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
@@ -162,9 +164,9 @@ export function ConnectionBoard({ connection }) {
 
             <div className='connection-board-button-container'>
                 <p>{4 - numWrongGuesses} Lives Remaining</p>
-                <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-submit-button`} id={gameStatus === 'playing' ? "" : "no-click"}>Shuffle</button>
-                <button onClick={() => setGuessArr([])} className={`connection-board-submit-button`} id={guessArr.length > 0 ? "" : "no-click"}>Deselect All</button>
-                <button onClick={submitGuess} className={`connection-board-submit-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>
+                <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-button`} id={gameStatus === 'playing' ? "" : "no-click"}>Shuffle</button>
+                <button onClick={() => setGuessArr([])} className={`connection-board-button`} id={guessArr.length > 0 ? "" : "no-click"}>Deselect All</button>
+                <button onClick={submitGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>
             </div>
         </div>
     )

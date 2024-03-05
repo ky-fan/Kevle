@@ -33,7 +33,7 @@ export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
     return (
         <div className='connections-word-tile-container' >
             <div className={`connections-word-tile ${disableClick}`} id={isSelected ? 'connections-word-tile-selected' : ''} onClick={handleClick}>
-                <h2>{word}</h2>
+                <h2>{word.toUpperCase()}</h2>
             </div>
         </div>
     )

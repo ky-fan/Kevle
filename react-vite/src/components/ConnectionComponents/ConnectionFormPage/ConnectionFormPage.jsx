@@ -94,7 +94,6 @@ export function ConnectionFormPage() {
             formData.append('title', title)
             formData.append('categories', `${category1},${category2},${category3},${category4}`)
             formData.append('answers', `${answers1},${answers2},${answers3},${answers4}`)
-
             if (connectionId) {
                 dispatch(thunkUpdateConnection(connectionId, formData)).then(() => navigate(`/connections/${connectionId}`))
             } else {
@@ -153,12 +152,12 @@ export function ConnectionFormPage() {
 
                     <div className='connections-form-category-container'>
                         <div className='connections-form-category-border'>
-                            <div className='connections-form-category-input-header' id='connections-form-green-category'>
+                            <div className='connections-form-category-input-header' id='connections-form-yellow-category'>
                                 <label htmlFor="category1" className='connections-form-category-label'>Category Description</label>
-                                <input type="text" id='category1' name='first category' value={category1} onChange={(e) => setCategory1(e.target.value)} className='connections-form-first-input' required />
+                                <input type="text" id='category1' name='first category' value={category1} onChange={(e) => setCategory1(e.target.value)} className='connections-form-first-input' placeholder='Category Description' required />
 
                                 <label htmlFor="answers1" className='connections-form-category-label'>Answers (Comma-separated)</label>
-                                <input type="text" id='answers1' name='first category answers' value={answers1} onChange={(e) => setAnswers1(e.target.value)} required />
+                                <input type="text" id='answers1' name='first category answers' value={answers1} onChange={(e) => setAnswers1(e.target.value)} placeholder='Four,comma,separated,answers' required />
                             </div>
                         </div>
 
@@ -171,7 +170,7 @@ export function ConnectionFormPage() {
 
                     <div className='connections-form-category-container'>
                         <div className='connections-form-category-border'>
-                            <div className='connections-form-category-input-header' id='connections-form-yellow-category'>
+                            <div className='connections-form-category-input-header' id='connections-form-green-category'>
                                 <label htmlFor="category2" className='connections-form-category-label'>Category Description</label>
                                 <input type="text" id='category2' name='second category' value={category2} onChange={(e) => setCategory2(e.target.value)} className='connections-form-first-input' required />
 
