@@ -54,23 +54,23 @@ export function ConnectionBoard({ connection }) {
 
         if (!shuffledArr) return
         setDisplayArr(shuffledArr.filter(word => !(filteredWordsArr.includes(word))))
-    }, [connection, shuffledArr, gameState, answerArr, guessArr])
+    }, [connection, shuffledArr, gameState, answerArr, guessArr, numWrongGuesses])
 
-    // useEffect(() => {
+    // Implement useEffect to check game status
+    useEffect(() => {
+        if (numWrongGuesses >= 4) alert('UH OH, YOU LOST')
+        if (gameState[3] > 0) alert('YOU WON')
+    })
 
-    //     setDisplayArr(shuffledArr.filter(word => filteredWords().includes(word)))
-    // }, [gameState, shuffledArr, filteredWords])
+    // shuffle/deselect all buttons
+
 
 
     if (!answerArr) return
-    // console.log("this is shuffled ", shuffledArr)
-    // console.log(connection.answers)
 
     if (!connection.categories) return
 
     const connectionArr = connection.categories
-
-    // console.log('these are categories', connection.categories)
 
     // Stores [categoryNumber, category, answer1, answer2, answer3, answer4] to pass into ConnectionAnswerBar
     const categoryObj = {}
@@ -88,53 +88,32 @@ export function ConnectionBoard({ connection }) {
 
     const submitGuess = e => {
         e.preventDefault()
+        // iterate through each of the 4 rows to check for completion
+        for (let i = 0; i < 4; i++) {
+            // if the current row is incomplete
+            if (gameState[i] === 0) {
+                // iter through each of the 4 sets of answers
+                for (let answerSetNum in answerObj) {
+                    // check if the guess matches any of the answer sets
+                    if (guessArr.every(word => answerObj[answerSetNum].has(word))) {
+                        // update gamestate if there's a match
+                        const newGameState = [...gameState]
+                        newGameState[i] = parseInt(answerSetNum)
+                        setGameState(newGameState)
 
-        const guessSet = new Set(guessArr)
-        // if no solved rows
-        if (gameState[0] === 0) {
-
-            // iterate through every answer set
-            for (let answerSetNum in answerObj) {
-
-                // check if guess set has every word in the answer set
-                if ([...guessSet].every(word => answerObj[answerSetNum].has(word))) {
-
-                    //if correct then updated gamestate then clear guesses
-                    setGameState([parseInt(answerSetNum), 0, 0, 0])
-                    setGuessArr([])
-                    return
+                        // empty the guess
+                        setGuessArr([])
+                        return
+                    }
                 }
             }
         }
-
-        // if one solved row
-        if (gameState[1] === 0) {
-
-            // check every answer set
-            for (let answerSetNum in answerObj) {
-
-                // check if guess set has every word in the answer set
-                if ([...guessSet].every(word => answerObj[answerSetNum].has(word))) {
-
-                    //if correct then updated gamestate
-                    console.log(answerSetNum)
-                    const newGameState = [...gameState]
-                    newGameState[1] = parseInt(answerSetNum)
-                    setGameState(newGameState)
-                }
-            }
-        }
-
+        let guesses = numWrongGuesses + 1
+        setNumWrongGuesses(guesses)
     }
-
-
-    if (!displayArr) return
 
     return (
         <div className='connection-board-container'>
-            {/* {console.log('filtered', filteredWords())} */}
-            {/* {console.log('guessArr ', guessArr)} */}
-            {console.log('displayArr', displayArr)}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
@@ -160,6 +139,7 @@ export function ConnectionBoard({ connection }) {
             ))} */}
 
             <div className='connection-board-button-container'>
+                <p>{numWrongGuesses} Incorrect Guesses</p>
                 <button onClick={submitGuess} className={`connection-board-submit-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>
             </div>
         </div>
