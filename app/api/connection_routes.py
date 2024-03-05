@@ -24,7 +24,7 @@ def user_connections_index(user_id):
     """Get basic display information for all Connections games belonging to a user."""
     connections = Connection.query.filter(Connection.user_id == user_id).order_by(Connection.id.desc()).all()
     if (not connections):
-        return {"message": "User tracks not found"}
+        return {"message": "User connections not found"}
     return {'connections': [connection.to_dict_index_info() for connection in connections]}
 
 @connection_routes.route('/', methods = ['POST'])
@@ -34,9 +34,7 @@ def create_new_connection():
     form = NewConnectionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    print('form data:', form.data)
     if form.validate_on_submit():
-        print('inside validate on submit')
         params = {
             "user_id": current_user.id,
             "title": form.data["title"],
