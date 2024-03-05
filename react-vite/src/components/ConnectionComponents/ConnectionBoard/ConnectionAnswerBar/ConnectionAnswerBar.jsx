@@ -30,8 +30,8 @@ export function ConnectionAnswerBar({ category }) {
     return (
         <div className={`connection-answer-bar-container`} id={categoryColor}>
             <div className='connection-answer-bar-tile'>
-                <h2>{category[1]} </h2>
-                <p>{`${category[2]}, ${category[3]}, ${category[4]}, ${category[5]}`}</p>
+                <h2>{category[1].toUpperCase()} </h2>
+                <p>{`${category[2].toUpperCase()}, ${category[3].toUpperCase()}, ${category[4].toUpperCase()}, ${category[5].toUpperCase()}`}</p>
             </div>
 
         </div>
