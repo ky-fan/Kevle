@@ -1,4 +1,4 @@
-// action types
+// Action types
 export const LOAD_CONNECTIONS = 'connections/loadConnections'
 export const LOAD_CONNECTION_BY_ID = 'connections/loadConnectionById'
 export const CREATE_CONNECTION = 'connections/createConnection'
@@ -6,7 +6,7 @@ export const UPDATE_CONNECTION = 'connections/updateConnection'
 export const DELETE_CONNECTION = 'connections/deleteConnection'
 export const CLEAR_CONNECTIONS = 'connections/clearConnections'
 
-// action creators
+// Action creators
 export const loadConnections = connections => ({
     type: LOAD_CONNECTIONS,
     payload: connections
@@ -36,7 +36,7 @@ export const clearConnections = () => ({
     type: CLEAR_CONNECTIONS
 })
 
-// thunk action creators
+// Thunk action creators
 export const thunkFetchConnections = () => async dispatch => {
     const res = await fetch('/api/connections')
 

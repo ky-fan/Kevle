@@ -5,6 +5,8 @@ import Layout from './Layout';
 import ConnectionsIndex from '../components/ConnectionComponents/ConnectionsIndex/ConnectionsIndex';
 import { ConnectionDetailsPage } from '../components/ConnectionComponents/ConnectionDetailsPage/ConnectionDetailsPage';
 import { ConnectionFormPage } from '../components/ConnectionComponents/ConnectionFormPage/ConnectionFormPage';
+import UserDetailsPage from '../components/UserDetailsPage/UserDetailsPage';
+import SplashPage from '../components/SplashPage/SplashPage';
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <SplashPage />,
       },
       {
         path: "login",
@@ -21,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "users/:userId",
+        element: <UserDetailsPage />
       },
       {
         path: "connections",

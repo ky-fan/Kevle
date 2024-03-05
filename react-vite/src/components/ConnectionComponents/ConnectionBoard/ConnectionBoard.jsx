@@ -91,7 +91,6 @@ export function ConnectionBoard({ connection }) {
         }
     }, [gameState, numWrongGuesses])
 
-    // Style answer bar
     // Win/loss modals
     // how to play modal
 

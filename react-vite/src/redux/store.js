@@ -7,10 +7,12 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import connectionReducer from "./connection";
+import commentReducer from "./comment";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   connections: connectionReducer,
+  comments: commentReducer,
 });
 
 let enhancer;
