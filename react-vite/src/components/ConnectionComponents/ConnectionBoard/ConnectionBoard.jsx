@@ -10,7 +10,7 @@ export function ConnectionBoard({ connection }) {
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
-    const [gameState, setGameState] = useState([0, 0, 0, 0])
+    const [gameState, setGameState] = useState([2, 0, 0, 0])
 
     // Selected words for each guess, need four words to submit
     const [guessArr, setGuessArr] = useState([])
@@ -99,6 +99,28 @@ export function ConnectionBoard({ connection }) {
                     //if correct then updated gamestate
                     console.log(answerSetNum)
                     setGameState([answerSetNum, 0, 0, 0])
+                    setDisplayArr(shuffledArr.filter(word => !(guessSet.has(word))))
+                    console.log('filter?', shuffledArr.filter(word => !(guessSet.has(word))))
+                    console.log(displayArr)
+                    return
+                }
+            }
+        }
+
+        // if one solved row
+        if (gameState[1] === 0) {
+
+            // check every answer set
+            for (let answerSetNum in answerObj) {
+
+                // check if guess set has every word in the answer set
+                if ([...guessSet].every(word => answerObj[answerSetNum].has(word))) {
+
+                    //if correct then updated gamestate
+                    console.log(answerSetNum)
+                    const newGameState = [...gameState]
+                    newGameState[1] = answerSetNum
+                    setGameState(newGameState)
                     setDisplayArr(shuffledArr.filter(word => !(guessSet.has(word))))
                     console.log('filter?', shuffledArr.filter(word => !(guessSet.has(word))))
                     console.log(displayArr)
