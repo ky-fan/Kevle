@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './ConnectionDetailsPage.css'
 import { useNavigate, useParams, NavLink } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } from '../../../redux/connection'
 import { ConnectionBoard } from '../ConnectionBoard/ConnectionBoard'
+import { thunkFetchConnectionComments } from '../../../redux/comment'
+import CommentsIndex from '../../CommentComponents/CommentsIndex/CommentsIndex'
 
 
 export function ConnectionDetailsPage() {
@@ -13,10 +15,16 @@ export function ConnectionDetailsPage() {
 
     const user = useSelector(state => state.session.user)
     const connection = useSelector(state => state.connections[connectionId])
+    const connectionCommentsArr = useSelector(state => Object.values(state.comments).filter(comment => parseInt(connectionId) === comment.connectionId))
 
     const isOwner = (parseInt(user?.id) === connection?.userId)
 
+    const [showComments, setShowComments] = useState(false)
+
+    // Fetch comments thunk must go first (not sure why)
     useEffect(() => {
+        console.log('useEffect triggered')
+        dispatch(thunkFetchConnectionComments(connectionId))
         dispatch(thunkFetchConnectionById(connectionId))
     }, [dispatch, connectionId])
 
@@ -33,13 +41,10 @@ export function ConnectionDetailsPage() {
         })
     }
 
-    // const categoryArr = connection?.categories
-    // const answerArr = connection?.answers
-
-    // const category1Answers = answerArr?.slice(0, 4)
-    // const category2Answers = answerArr?.slice(4, 8)
-    // const category3Answers = answerArr?.slice(8, 12)
-    // const category4Answers = answerArr?.slice(12, 16)
+    const toggleComments = e => {
+        e.preventDefault()
+        setShowComments(!showComments)
+    }
 
     if (!connection) return
 
@@ -58,25 +63,14 @@ export function ConnectionDetailsPage() {
                     <ConnectionBoard connection={connection} />
                 </div>
 
-                {/* <div>
-                    <p>Category 1 is {categoryArr && categoryArr[0]}</p>
-                    <p>Answers are: {category1Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-                </div>
-                <div>
-                    <p>Category 2 is {categoryArr && categoryArr[1]}</p>
-                    <p>Answers are: {category2Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-                </div>
-                <div>
-                    <p>Category 3 is {categoryArr && categoryArr[2]}</p>
-                    <p>Answers are: {category3Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-                </div>
-                <div>
-                    <p>Category 4 is {categoryArr && categoryArr[3]}</p>
-                    <p>Answers are: {category4Answers?.map(answer => <p key={answer}>{answer}</p>)}</p>
-                </div> */}
-
                 {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
                 {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
+            </div>
+
+            <div>
+                {showComments && <button onClick={toggleComments}>Hide Comments</button>}
+                {!showComments && <button onClick={toggleComments} title='showComments'>Show Comments</button>}
+                {showComments && <CommentsIndex commentsArr={connectionCommentsArr} />}
             </div>
         </div>
     )

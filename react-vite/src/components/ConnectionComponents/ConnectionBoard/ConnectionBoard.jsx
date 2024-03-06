@@ -86,7 +86,7 @@ export function ConnectionBoard({ connection }) {
             // Clear guess, set game status to lost
             setGuessArr([])
             setGameStatus('lost')
-            alert('UH OH, YOU LOST (This will be replaced by a modal)')
+            alert('NEXT TIME (This will be replaced by a modal)')
             return
         }
     }, [gameState, numWrongGuesses])
@@ -160,8 +160,11 @@ export function ConnectionBoard({ connection }) {
                 {gameState[3] === 0 && displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
             </div>
 
+            <div className='connection-board-mistakes-container'>
+                <p>Mistakes Remaining: {4 - numWrongGuesses} </p>
+            </div>
+
             <div className='connection-board-button-container'>
-                <p>{4 - numWrongGuesses} Lives Remaining</p>
                 <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-button`} id={gameStatus === 'playing' ? "" : "no-click"}>Shuffle</button>
                 <button onClick={() => setGuessArr([])} className={`connection-board-button`} id={guessArr.length > 0 ? "" : "no-click"}>Deselect All</button>
                 <button onClick={submitGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "no-click"}>Submit</button>

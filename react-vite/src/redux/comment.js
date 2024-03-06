@@ -1,6 +1,7 @@
 // Action types
 export const LOAD_COMMENTS = 'comments/loadComments'
 export const LOAD_COMMENT_BY_ID = 'comments/loadCommentById'
+export const LOAD_CONNECTION_COMMENTS = 'comments/loadConnectionComment'
 export const CREATE_COMMENT = 'comments/createComment'
 export const UPDATE_COMMENT = 'comments/updateComment'
 export const DELETE_COMMENT = 'comments/deleteComment'
@@ -15,6 +16,11 @@ export const loadComments = comments => ({
 export const loadCommentById = comment => ({
     type: LOAD_COMMENTS,
     comment
+})
+
+export const loadConnectionComments = comments => ({
+    type: LOAD_CONNECTION_COMMENTS,
+    payload: comments
 })
 
 export const createComment = comment => ({
@@ -38,7 +44,7 @@ export const clearComments = () => ({
 
 // Thunk action creators
 export const thunkFetchComments = () => async dispatch => {
-    const res = await fetch('/api/comments')
+    const res = await fetch('/api/comments/')
 
     if (res.ok) {
         const comments = await res.json()
@@ -53,6 +59,14 @@ export const thunkFetchCommentById = commentId => async dispatch => {
         dispatch(loadCommentById(comment))
         return comment
     } else return { 'message': 'fetch comment by id thunk error' }
+}
+
+export const thunkFetchConnectionComments = ConnectionId => async dispatch => {
+    const res = await fetch(`/api/comments/connections/${ConnectionId}`)
+    if (res.ok) {
+        const comments = await res.json()
+        dispatch(loadConnectionComments(comments))
+    } else return { 'message': 'fetch connection comments thunk error' }
 }
 
 export const thunkCreateComment = comment => async dispatch => {
@@ -104,6 +118,12 @@ const commentReducer = (state = {}, action) => {
         case LOAD_COMMENT_BY_ID: {
             const newCommentState = { ...state }
             newCommentState[action.comment.id] = action.comment
+            return newCommentState
+        }
+
+        case LOAD_CONNECTION_COMMENTS: {
+            const newCommentState = { ...state }
+            if (action.payload.comments) action.payload.comments.forEach(comment => { newCommentState[comment.id] = comment })
             return newCommentState
         }
 
