@@ -51,7 +51,7 @@ export function CommentsIndex({ commentsArr, connectionId }) {
             {user &&
                 <div className='comments-index-form-container' >
                     <div className='comments-index-form-user-icon-container'>
-                        <FaUserCircle className='user-profile-button' />
+                        <FaUserCircle className='user-profile-button no-click' />
                     </div>
                     <div className='comments-index-form-user-input-container'>
                         <h4>{user.username}</h4>
@@ -64,17 +64,9 @@ export function CommentsIndex({ commentsArr, connectionId }) {
                     </div>
                 </div>
             }
-
-            {/* {
-                isUpdate &&
-                <div>
-                    <textarea placeholder='140 char limit' value={commentText} onChange={e => setCommentText(e.target.value)} />
-                    <button onClick={handleUpdate}>Update Comment</button>
-                </div>
-            } */}
-
-
-            {commentsArr.map(comment => <CommentCard comment={comment} key={comment.id} isOwner={parseInt(user?.id) === comment.userId} setIsUpdate={setIsUpdate} setCommentText={setCommentText} setUpdateCommentId={setUpdateCommentId} />)}
+            <div className='comments-index-card-container'>
+                {commentsArr.map(comment => <CommentCard comment={comment} key={comment.id} currentUser={user} setIsUpdate={setIsUpdate} setCommentText={setCommentText} setUpdateCommentId={setUpdateCommentId} />)}
+            </div>
         </div>
     )
 }

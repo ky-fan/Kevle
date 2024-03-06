@@ -1,9 +1,14 @@
 import { useDispatch } from 'react-redux'
 import './CommentCard.css'
 import { thunkDeleteComment } from '../../../redux/comment'
+import { FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'
 
-export function CommentCard({ comment, isOwner, setIsUpdate, setCommentText, setUpdateCommentId }) {
+export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText, setUpdateCommentId }) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const isOwner = (currentUser.id === comment.userId)
 
     const handleDelete = e => {
         e.preventDefault()
@@ -22,9 +27,14 @@ export function CommentCard({ comment, isOwner, setIsUpdate, setCommentText, set
         setCommentText(comment.commentText)
     }
     return (
-        <div>
-            <p>{comment.authorName}</p>
-            <p>{comment.commentText}</p>
+        <div className='comment-card-container'>
+            <div className='comments-index-form-user-icon-container'>
+                <FaUserCircle className='user-profile-button' onClick={() => navigate(`/users/${comment.userId}`)} />
+            </div>
+            <div className='comment-card-content'>
+                <h4>{comment.authorName}</h4>
+                <p>{comment.commentText}</p>
+            </div>
 
             <div>
                 {isOwner && <button onClick={handleUpdate}>Update</button>}

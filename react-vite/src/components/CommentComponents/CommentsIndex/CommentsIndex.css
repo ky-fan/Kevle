@@ -3,15 +3,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .comments-index-form-container {
-    width: 100%;
+    width: 55vw;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     align-items: center;
     height: 100px;
+    box-sizing: border-box;
+    padding-bottom: 20px;
 }
 
 .comments-index-form-user-icon-container {
@@ -48,4 +50,18 @@
     justify-content: flex-end;
     width: 50vw;
     height: 40px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.comments-index-form-button-container>button {
+    height: 100%;
+}
+
+.comments-index-card-container {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-top: 20px;
 }
