@@ -3,6 +3,7 @@ import './ConnectionBoard.css'
 import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 
+
 export function ConnectionBoard({ connection }) {
 
     const [numWrongGuesses, setNumWrongGuesses] = useState(0)
@@ -23,6 +24,8 @@ export function ConnectionBoard({ connection }) {
     // Copy of shuffledArr to be mutated for display
     const [displayArr, setDisplayArr] = useState([])
 
+    const [answerObj, setAnswerObj] = useState({})
+
     // Returns a randomized copy of the input array
     function shuffle(arr) {
         if (arr) {
@@ -40,6 +43,14 @@ export function ConnectionBoard({ connection }) {
     // Initialize a shuffled array to be stored in state
     useEffect(() => {
         setShuffledArr(shuffle(connection.answers))
+        setAnswerObj(
+            {
+                1: connection.answers.slice(0, 4),
+                2: connection.answers.slice(4, 8),
+                3: connection.answers.slice(8, 12),
+                4: connection.answers.slice(12, 16)
+            }
+        )
     }, [connection])
 
     // Updates the displayed elements on re-render
@@ -48,11 +59,9 @@ export function ConnectionBoard({ connection }) {
         // Check the gameState to see which categories have been solved and thus which words to filter out of the display
         let filteredWordsArr = []
         function filteredWords() {
-            if (gameState.includes(1)) filteredWordsArr.push(...answerArr.slice(0, 4))
-            if (gameState.includes(2)) filteredWordsArr.push(...answerArr.slice(4, 8))
-            if (gameState.includes(3)) filteredWordsArr.push(...answerArr.slice(8, 12))
-            if (gameState.includes(4)) filteredWordsArr.push(...answerArr.slice(12, 16))
-
+            for (let i = 1; i < 5; i++) {
+                if (gameState.includes(i)) filteredWordsArr.push(...answerObj[i])
+            }
             return filteredWordsArr
         }
         filteredWords()
@@ -60,7 +69,7 @@ export function ConnectionBoard({ connection }) {
         // Sets the display array to only contain words from unsolved categories
         if (!shuffledArr) return
         setDisplayArr(shuffledArr.filter(word => !(filteredWordsArr.includes(word))))
-    }, [connection, shuffledArr, gameState, answerArr, guessArr, numWrongGuesses])
+    }, [connection, shuffledArr, gameState, guessArr, numWrongGuesses, answerObj])
 
     // Check game status
     useEffect(() => {
@@ -102,28 +111,26 @@ export function ConnectionBoard({ connection }) {
 
     // Stores [categoryNumber, category, answer1, answer2, answer3, answer4] to pass into ConnectionAnswerBar
     const categoryObj = {}
-    categoryObj.category1 = [1, connectionArr[0]].concat(answerArr?.slice(0, 4))
-    categoryObj.category2 = [2, connectionArr[1]].concat(answerArr?.slice(4, 8))
-    categoryObj.category3 = [3, connectionArr[2]].concat(answerArr?.slice(8, 12))
-    categoryObj.category4 = [4, connectionArr[3]].concat(answerArr?.slice(12, 16))
-
-    // Stores sets containing each group of answers for comparison to guesses
-    const answerObj = {}
-    answerObj[1] = new Set(answerArr.slice(0, 4))
-    answerObj[2] = new Set(answerArr.slice(4, 8))
-    answerObj[3] = new Set(answerArr.slice(8, 12))
-    answerObj[4] = new Set(answerArr.slice(12, 16))
+    for (let i = 1; i < 5; i++) {
+        categoryObj[`category${i}`] = [i, connectionArr[i - 1]].concat(answerObj[i])
+    }
 
     const submitGuess = e => {
         e.preventDefault()
+        // Stores sets containing each group of answers for comparison to guesses
+        const answerSetObj = {}
+        for (let i = 1; i < 5; i++) {
+            answerSetObj[i] = new Set(answerObj[i])
+        }
+
         // Iterate through each of the 4 rows to check for completion
         for (let i = 0; i < 4; i++) {
             // If the current row is incomplete
             if (gameState[i] === 0) {
                 // Iterate through each of the 4 sets of answers
-                for (let answerSetNum in answerObj) {
+                for (let answerSetNum in answerSetObj) {
                     // Check if the guess matches any of the answer sets
-                    if (guessArr.every(word => answerObj[answerSetNum].has(word))) {
+                    if (guessArr.every(word => answerSetObj[answerSetNum].has(word))) {
                         // Update gamestate if there's a match
                         const newGameState = [...gameState]
                         newGameState[i] = parseInt(answerSetNum)
