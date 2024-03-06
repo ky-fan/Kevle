@@ -46,3 +46,10 @@
     display: flex;
     justify-content: center;
 }
+
+.connection-details-comments-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

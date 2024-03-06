@@ -67,7 +67,7 @@ export function ConnectionDetailsPage() {
                 {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
             </div>
 
-            <div>
+            <div className='connection-details-comments-container'>
                 <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
                 {showComments && <CommentsIndex commentsArr={connectionCommentsArr} connectionId={connectionId} />}
             </div>
