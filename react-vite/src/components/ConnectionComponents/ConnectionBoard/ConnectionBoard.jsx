@@ -45,10 +45,10 @@ export function ConnectionBoard({ connection }) {
         setShuffledArr(shuffle(connection.answers))
         setAnswerObj(
             {
-                1: connection.answers.slice(0, 4),
-                2: connection.answers.slice(4, 8),
-                3: connection.answers.slice(8, 12),
-                4: connection.answers.slice(12, 16)
+                1: connection.answers?.slice(0, 4),
+                2: connection.answers?.slice(4, 8),
+                3: connection.answers?.slice(8, 12),
+                4: connection.answers?.slice(12, 16)
             }
         )
     }, [connection])
