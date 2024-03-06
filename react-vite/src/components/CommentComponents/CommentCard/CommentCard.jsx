@@ -8,11 +8,11 @@ export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText,
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const isOwner = (currentUser.id === comment.userId)
+    const isOwner = (currentUser?.id === comment?.userId)
 
     const handleDelete = e => {
         e.preventDefault()
-        dispatch(thunkDeleteComment(comment.id))
+        dispatch(thunkDeleteComment(comment?.id))
     }
 
     const handleUpdate = e => {
@@ -23,17 +23,17 @@ export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText,
             behavior: "smooth"
         })
         setIsUpdate(true)
-        setUpdateCommentId(comment.id)
-        setCommentText(comment.commentText)
+        setUpdateCommentId(comment?.id)
+        setCommentText(comment?.commentText)
     }
     return (
         <div className='comment-card-container'>
             <div className='comments-index-form-user-icon-container'>
-                <FaUserCircle className='user-profile-button' onClick={() => navigate(`/users/${comment.userId}`)} />
+                <FaUserCircle className='user-profile-button' onClick={() => navigate(`/users/${comment?.userId}`)} />
             </div>
             <div className='comment-card-content'>
-                <h4>{comment.authorName}</h4>
-                <p>{comment.commentText}</p>
+                <h4>{comment?.authorName}</h4>
+                <p>{comment?.commentText}</p>
             </div>
 
             <div>
