@@ -4,7 +4,7 @@ import { useNavigate, useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } from '../../../redux/connection'
 import { ConnectionBoard } from '../ConnectionBoard/ConnectionBoard'
-import { thunkFetchConnectionComments } from '../../../redux/comment'
+import { clearComments, thunkFetchConnectionComments } from '../../../redux/comment'
 import CommentsIndex from '../../CommentComponents/CommentsIndex/CommentsIndex'
 
 
@@ -15,7 +15,7 @@ export function ConnectionDetailsPage() {
 
     const user = useSelector(state => state.session.user)
     const connection = useSelector(state => state.connections[connectionId])
-    const connectionCommentsArr = useSelector(state => Object.values(state.comments).filter(comment => parseInt(connectionId) === comment.connectionId))
+    const connectionCommentsArr = useSelector(state => Object.values(state.comments)).sort((a, b) => b.id - a.id)
 
     const isOwner = (parseInt(user?.id) === connection?.userId)
 
@@ -23,6 +23,7 @@ export function ConnectionDetailsPage() {
 
     // Fetch comments thunk must go first (not sure why)
     useEffect(() => {
+        dispatch(clearComments())
         dispatch(thunkFetchConnectionComments(connectionId))
         dispatch(thunkFetchConnectionById(connectionId))
     }, [dispatch, connectionId])
@@ -67,8 +68,8 @@ export function ConnectionDetailsPage() {
             </div>
 
             <div>
-                <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Show Comments' : 'Hide Comments'}</button>
-                {showComments && <CommentsIndex commentsArr={connectionCommentsArr} />}
+                <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
+                {showComments && <CommentsIndex commentsArr={connectionCommentsArr} connectionId={connectionId} />}
             </div>
         </div>
     )
