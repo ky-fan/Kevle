@@ -47,6 +47,14 @@
     justify-content: center;
 }
 
+.connection-details-toggle-comments-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
 .connection-details-comments-container {
     width: 100%;
     display: flex;

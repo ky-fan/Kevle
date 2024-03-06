@@ -68,7 +68,9 @@ export function ConnectionDetailsPage() {
             </div>
 
             <div className='connection-details-comments-container'>
-                <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
+                <div className='connection-details-toggle-comments-button-container'>
+                    <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
+                </div>
                 {showComments && <CommentsIndex commentsArr={connectionCommentsArr} connectionId={connectionId} />}
             </div>
         </div>

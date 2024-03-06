@@ -21,15 +21,13 @@
     box-sizing: border-box;
     height: 100%;
     justify-content: flex-start;
-    padding: 10px 20px 40px 20px;
+    padding: 0 20px 0 0;
 }
 
 .comments-index-form-user-input-container>textarea {
     width: 50vw;
     resize: none;
     height: 30px;
-    /* border-radius: 5px; */
-    /* background-color: var(--elevation16); */
     background-color: var(--black);
     border: none;
     border-bottom: 2px var(--white) solid;
