@@ -65,3 +65,8 @@
     box-sizing: border-box;
     padding-top: 20px;
 }
+
+.disabled-comment-submit-button {
+    pointer-events: none;
+    background-color: var(--error);
+}

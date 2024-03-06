@@ -12,39 +12,40 @@ export function CommentsIndex({ commentsArr, connectionId }) {
     const [commentText, setCommentText] = useState("")
     const [isUpdate, setIsUpdate] = useState(false)
     const [updateCommentId, setUpdateCommentId] = useState(0)
+    const [valErrors, setValErrors] = useState("")
 
+    const handleSubmit = e => {
+        e.preventDefault
+        const errObj = {}
+        if (commentText.length > 140 && commentText.length !== 0) errObj.commentText = "Comment must be less than 140 characters"
 
-    const handleCreate = e => {
-        e.preventDefault()
+        if (Object.values(errObj).length) {
+            setValErrors(errObj)
+        } else {
+            const formData = new FormData()
+            formData.append('connection_id', connectionId)
+            formData.append('comment_text', commentText)
 
-        const formData = new FormData()
-        formData.append('connection_id', connectionId)
-        formData.append('comment_text', commentText)
-
-        dispatch(thunkCreateComment(formData))
-        setCommentText("")
-    }
-
-    const handleUpdate = e => {
-        e.preventDefault()
-
-        const formData = new FormData()
-        formData.append('connection_id', connectionId)
-        formData.append('comment_text', commentText)
-
-        dispatch(thunkUpdateComment(updateCommentId, formData))
-        setCommentText("")
-        setIsUpdate(false)
-        setUpdateCommentId(0)
+            if (updateCommentId) {
+                dispatch(thunkUpdateComment(updateCommentId, formData))
+                setIsUpdate(false)
+                setUpdateCommentId(0)
+            } else {
+                dispatch(thunkCreateComment(formData))
+            }
+            setCommentText("")
+        }
     }
 
     const handleCancel = e => {
         e.preventDefault()
 
+        setValErrors({})
         setCommentText("")
         setIsUpdate(false)
         setUpdateCommentId(0)
     }
+
 
     return (
         <div className='comments-index-container'>
@@ -57,15 +58,18 @@ export function CommentsIndex({ commentsArr, connectionId }) {
                         <h4>{user.username}</h4>
                         <textarea placeholder='Add a comment... (140 character limit)' value={commentText} onChange={e => setCommentText(e.target.value)} />
                         <div className='comments-index-form-button-container'>
+
+                            {valErrors.commentText && <p>{valErrors.commentText}</p>}
                             {isUpdate && <button onClick={handleCancel}>Cancel Update</button>}
-                            {!isUpdate && <button onClick={handleCreate}>Submit Comment</button>}
-                            {isUpdate && <button onClick={handleUpdate}>Update Comment</button>}
+                            <button className={` ${commentText ? "" : "disabled-comment-submit-button"}`} onClick={handleSubmit}>{isUpdate ? 'Update Comment' : 'Comment'}</button>
+                            <div className='comments-index-form-error-container'>
+                            </div>
                         </div>
                     </div>
                 </div>
             }
             <div className='comments-index-card-container'>
-                {commentsArr.map(comment => <CommentCard comment={comment} key={comment.id} currentUser={user} setIsUpdate={setIsUpdate} setCommentText={setCommentText} setUpdateCommentId={setUpdateCommentId} />)}
+                {commentsArr.map(comment => <CommentCard comment={comment} key={comment.id} currentUser={user} setIsUpdate={setIsUpdate} setCommentText={setCommentText} setUpdateCommentId={setUpdateCommentId} setValErrors={setValErrors} />)}
             </div>
         </div>
     )

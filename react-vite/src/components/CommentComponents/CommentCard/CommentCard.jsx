@@ -4,7 +4,7 @@ import { thunkDeleteComment } from '../../../redux/comment'
 import { FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'
 
-export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText, setUpdateCommentId }) {
+export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText, setUpdateCommentId, setValErrors }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -13,6 +13,7 @@ export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText,
     const handleDelete = e => {
         e.preventDefault()
         dispatch(thunkDeleteComment(comment?.id))
+        setValErrors({})
     }
 
     const handleUpdate = e => {
@@ -22,6 +23,7 @@ export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText,
             top: 500,
             behavior: "smooth"
         })
+        setValErrors({})
         setIsUpdate(true)
         setUpdateCommentId(comment?.id)
         setCommentText(comment?.commentText)
