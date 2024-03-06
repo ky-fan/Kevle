@@ -2,6 +2,7 @@
     display: flex;
     box-sizing: border-box;
     padding: 10px 0 10px 0;
+    width: 55vw;
 }
 
 .comment-card-content {
@@ -10,6 +11,15 @@
     width: 50vw;
 }
 
+.comment-card-content>p {
+    word-wrap: break-word;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-top: 5px;
+}
+
 .comment-card-content>h4 {
     margin: 0;
+    width: 100%;
 }

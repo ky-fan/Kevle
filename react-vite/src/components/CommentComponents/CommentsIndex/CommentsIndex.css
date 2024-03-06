@@ -34,6 +34,7 @@
     border: none;
     border-bottom: 2px var(--white) solid;
     color: var(--white);
+    word-wrap: break-word
 }
 
 .comments-index-form-user-input-container>textarea:focus {
