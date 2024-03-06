@@ -12,6 +12,11 @@ export function CommentCard({ comment, isOwner, setIsUpdate, setCommentText, set
 
     const handleUpdate = e => {
         e.preventDefault()
+
+        window.scrollTo({
+            top: 500,
+            behavior: "smooth"
+        })
         setIsUpdate(true)
         setUpdateCommentId(comment.id)
         setCommentText(comment.commentText)

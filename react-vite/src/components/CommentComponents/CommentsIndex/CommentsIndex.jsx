@@ -12,6 +12,7 @@ export function CommentsIndex({ commentsArr, connectionId }) {
     const [isUpdate, setIsUpdate] = useState(false)
     const [updateCommentId, setUpdateCommentId] = useState(0)
 
+
     const handleCreate = e => {
         e.preventDefault()
 
@@ -38,7 +39,7 @@ export function CommentsIndex({ commentsArr, connectionId }) {
 
     return (
         <div className='comments-index-container'>
-            <div>
+            <div className='comments-index-form-container' >
                 <textarea placeholder='140 char limit' value={commentText} onChange={e => setCommentText(e.target.value)} />
                 {!isUpdate && <button onClick={handleCreate}>Submit Comment</button>}
                 {isUpdate && <button onClick={handleUpdate}>Update Comment</button>}
