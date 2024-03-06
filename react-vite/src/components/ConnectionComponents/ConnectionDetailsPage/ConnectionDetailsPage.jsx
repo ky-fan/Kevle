@@ -23,7 +23,6 @@ export function ConnectionDetailsPage() {
 
     // Fetch comments thunk must go first (not sure why)
     useEffect(() => {
-        console.log('useEffect triggered')
         dispatch(thunkFetchConnectionComments(connectionId))
         dispatch(thunkFetchConnectionById(connectionId))
     }, [dispatch, connectionId])
@@ -68,8 +67,7 @@ export function ConnectionDetailsPage() {
             </div>
 
             <div>
-                {showComments && <button onClick={toggleComments}>Hide Comments</button>}
-                {!showComments && <button onClick={toggleComments} title='showComments'>Show Comments</button>}
+                <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Show Comments' : 'Hide Comments'}</button>
                 {showComments && <CommentsIndex commentsArr={connectionCommentsArr} />}
             </div>
         </div>

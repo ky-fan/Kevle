@@ -141,6 +141,7 @@ export function ConnectionBoard({ connection }) {
         setNumWrongGuesses(guesses)
     }
 
+    if (!(gameState.length)) return
     return (
         <div className='connection-board-container'>
             <div className='connection-board-row'>
