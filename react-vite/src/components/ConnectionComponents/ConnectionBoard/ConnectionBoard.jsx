@@ -1,4 +1,3 @@
-import ConnectionWordTile from './ConnectionWordTile/ConnectionWordTile'
 import './ConnectionBoard.css'
 import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
@@ -22,10 +21,10 @@ export function ConnectionBoard({ connection }) {
     // Contains the randomized answers
     const [shuffledArr, setShuffledArr] = useState([])
 
-    // Copy of shuffledArr to be mutated for display
-    // const [displayArr, setDisplayArr] = useState([])
+    // Contains the unsolved words
     const [remainingWords, setRemainingWords] = useState([])
 
+    // Contains answers for each category
     const [answerObj, setAnswerObj] = useState({})
 
     // Returns a randomized copy of the input array
@@ -145,7 +144,6 @@ export function ConnectionBoard({ connection }) {
     if (!(gameState.length)) return
     return (
         <div className='connection-board-container'>
-            {/* {console.log(remainingWords)} */}
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={0} />}

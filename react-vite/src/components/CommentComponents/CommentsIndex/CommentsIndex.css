@@ -1,5 +1,6 @@
 .comments-index-container {
     width: 100%;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,32 +8,33 @@
 }
 
 .comments-index-form-container {
-    width: 55vw;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px;
+    height: auto;
     box-sizing: border-box;
-    padding-bottom: 20px;
+}
+
+.comments-index-form-user-input-container {
+    width: 100%
 }
 
 .comments-index-form-user-icon-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 5%;
     box-sizing: border-box;
-    height: 100%;
-    justify-content: flex-start;
-    padding: 0 20px 0 0;
+    align-self: flex-start;
+    margin: 0 20px 0 0;
 }
 
 .comments-index-form-user-input-container>textarea {
-    width: 50vw;
+    width: 95%;
     resize: none;
     height: 30px;
     background-color: var(--black);
     border: none;
-    border-bottom: 2px var(--white) solid;
+    border-bottom: 2px var(--pink) solid;
     color: var(--white);
     word-wrap: break-word
 }
@@ -49,18 +51,28 @@
 .comments-index-form-button-container {
     display: flex;
     justify-content: flex-end;
-    width: 50vw;
-    height: 40px;
+    width: 100%;
+    height: 60px;
     box-sizing: border-box;
-    margin-bottom: 20px;
 }
 
-.comments-index-form-button-container>button {
-    height: 100%;
+.comments-index-form-submit-button {
+    height: 60px;
+    width: 40px;
+    border: none;
+    background-color: var(--cyan);
+    border-radius: 4px;
+    transition: 300ms all ease;
+    box-sizing: border-box;
+    margin: 10px 0 0 20px;
+}
+
+.comments-index-form-submit-button:hover {
+    transform: scale(1.1);
 }
 
 .comments-index-card-container {
-    width: 50vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -69,5 +81,5 @@
 
 .disabled-comment-submit-button {
     pointer-events: none;
-    background-color: var(--error);
+    background-color: var(--gray);
 }

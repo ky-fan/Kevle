@@ -3,6 +3,9 @@ import './CommentCard.css'
 import { thunkDeleteComment } from '../../../redux/comment'
 import { FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'
+import { MdDeleteOutline } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
+
 
 export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText, setUpdateCommentId, setValErrors }) {
     const dispatch = useDispatch()
@@ -38,9 +41,9 @@ export function CommentCard({ comment, currentUser, setIsUpdate, setCommentText,
                 <p>{comment?.commentText}</p>
             </div>
 
-            <div>
-                {isOwner && <button onClick={handleUpdate}>Update</button>}
-                {isOwner && <button onClick={handleDelete}>Delete</button>}
+            <div className="comment-card-button-container">
+                {isOwner && <FaRegEdit className='comment-card-button' onClick={handleUpdate} title='Update' />}
+                {isOwner && <MdDeleteOutline className='comment-card-button' onClick={handleDelete} title='Delete' />}
             </div>
         </div>
     )

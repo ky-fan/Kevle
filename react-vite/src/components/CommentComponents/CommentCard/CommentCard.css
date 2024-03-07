@@ -1,18 +1,18 @@
 .comment-card-container {
     display: flex;
     box-sizing: border-box;
-    padding: 10px 0 10px 0;
-    width: 55vw;
+    padding: 20px 0 20px 0;
+    width: 100%;
 }
 
 .comment-card-content {
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: 90%;
 }
 
 .comment-card-content>p {
-    word-wrap: break-word;
+    word-break: break-all;
     width: 100%;
     margin: 0;
     box-sizing: border-box;
@@ -22,4 +22,26 @@
 .comment-card-content>h4 {
     margin: 0;
     width: 100%;
+    font-size: 20px;
+}
+
+.comment-card-button-container {
+    width: 10%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-card-button {
+    min-width: 30px;
+    height: auto;
+    cursor: pointer;
+    transition: 300ms all ease;
+    margin: 0 5px 0 5px;
+    color: var(--gray);
+}
+
+.comment-card-button:hover {
+    transform: scale(1.1);
+    color: var(--pink);
 }

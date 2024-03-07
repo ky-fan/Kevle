@@ -12,7 +12,7 @@
     align-items: center;
     height: 100%;
     box-sizing: border-box;
-    transition: all 0.3s ease;
+    transition: all 250ms ease;
 }
 
 .connections-word-tile:hover {
@@ -37,6 +37,8 @@
 
 #connections-word-tile-selected {
     background: var(--purple);
+    transform: scale(.98);
+    outline: 2px var(--white) solid;
 }
 
 .no-click {

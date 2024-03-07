@@ -58,11 +58,10 @@ export function CommentsIndex({ commentsArr, connectionId }) {
                         <h4>{user.username}</h4>
                         <textarea placeholder='Add a comment... (140 character limit)' value={commentText} onChange={e => setCommentText(e.target.value)} />
                         <div className='comments-index-form-button-container'>
-
-                            {valErrors.commentText && <p>{valErrors.commentText}</p>}
-                            {isUpdate && <button onClick={handleCancel}>Cancel Update</button>}
-                            <button className={` ${commentText ? "" : "disabled-comment-submit-button"}`} onClick={handleSubmit}>{isUpdate ? 'Update Comment' : 'Comment'}</button>
+                            {isUpdate && <button className={`comments-index-form-submit-button`} onClick={handleCancel}>Cancel Update</button>}
+                            <button className={`comments-index-form-submit-button ${commentText ? "" : "disabled-comment-submit-button"}`} onClick={handleSubmit}>{isUpdate ? 'Update Comment' : 'Comment'}</button>
                             <div className='comments-index-form-error-container'>
+                                {valErrors.commentText && <p>{valErrors.commentText}</p>}
                             </div>
                         </div>
                     </div>
