@@ -150,7 +150,6 @@ export function ConnectionBoard({ connection }) {
     }
 
     if (!(gameState.length)) return
-    if (!displayArr.length) return
     return (
         <div className='connection-board-container'>
             <div className='connection-board-row'>
