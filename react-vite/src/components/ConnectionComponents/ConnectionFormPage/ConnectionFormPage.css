@@ -4,6 +4,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    animation: fade-in 500ms;
 }
 
 .connections-form-body {

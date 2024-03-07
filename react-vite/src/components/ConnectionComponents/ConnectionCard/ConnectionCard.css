@@ -8,6 +8,7 @@
     align-items: center;
     transition: background-color .25s ease;
     border-radius: 5px;
+    animation: fade-in 500ms;
 }
 
 .connection-card-container:hover {
