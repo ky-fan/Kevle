@@ -1,26 +1,4 @@
-.connection-board-container {
-    width: 70vw;
-    height: 60vh;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-.connection-board-row {
-    height: 25%;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    padding: 5px;
-}
-
-.connection-board-mistakes-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.connection-board-button-container {
+/* .connection-board-button-container {
     display: flex;
     width: 100%;
     height: 100px;
@@ -80,4 +58,4 @@
     100% {
         transform: rotate(0);
     }
-}
+} */
