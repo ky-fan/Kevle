@@ -1,7 +1,7 @@
 .comment-card-container {
     display: flex;
     box-sizing: border-box;
-    padding: 20px 0 20px 0;
+    padding: 30px 0 30px 0;
     width: 100%;
 }
 
@@ -17,6 +17,7 @@
     margin: 0;
     box-sizing: border-box;
     padding-top: 5px;
+    color: var(--white);
 }
 
 .comment-card-content>h4 {
@@ -44,4 +45,9 @@
 .comment-card-button:hover {
     transform: scale(1.1);
     color: var(--pink);
+}
+
+.comments-index-form-user-icon-container {
+    box-sizing: border-box;
+    padding-top: 5px;
 }

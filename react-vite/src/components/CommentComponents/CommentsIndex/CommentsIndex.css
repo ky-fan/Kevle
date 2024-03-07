@@ -29,7 +29,7 @@
 }
 
 .comments-index-form-user-input-container>textarea {
-    width: 95%;
+    width: 100%;
     resize: none;
     height: 30px;
     background-color: var(--black);
@@ -48,17 +48,17 @@
     margin-bottom: 10px;
 }
 
-.comments-index-form-button-container {
+.comments-index-form-lower-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     height: 60px;
     box-sizing: border-box;
 }
 
 .comments-index-form-submit-button {
-    height: 60px;
-    width: 40px;
+    height: 50px;
+    width: 120px;
     border: none;
     background-color: var(--cyan);
     border-radius: 4px;
@@ -82,4 +82,18 @@
 .disabled-comment-submit-button {
     pointer-events: none;
     background-color: var(--gray);
+}
+
+.comments-index-form-error-container {
+    width: 30%;
+}
+
+.comments-index-form-error-container>p {
+    color: var(--error);
+}
+
+.comments-index-form-button-container {
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
 }

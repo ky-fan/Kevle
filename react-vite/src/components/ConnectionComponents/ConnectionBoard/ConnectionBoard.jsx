@@ -110,12 +110,12 @@ export function ConnectionBoard({ connection }) {
 
     const submitGuess = e => {
         e.preventDefault()
+
         // Stores sets containing each group of answers for comparison to guesses
         const answerSetObj = {}
         for (let i = 1; i < 5; i++) {
             answerSetObj[i] = new Set(answerObj[i])
         }
-
         // Iterate through each of the 4 rows to check for completion
         for (let i = 0; i < 4; i++) {
             // If the current row is incomplete
