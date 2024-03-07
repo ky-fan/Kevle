@@ -6,6 +6,8 @@ import { clearConnections, thunkDeleteConnection, thunkFetchConnectionById } fro
 import { ConnectionBoard } from '../ConnectionBoard/ConnectionBoard'
 import { clearComments, thunkFetchConnectionComments } from '../../../redux/comment'
 import CommentsIndex from '../../CommentComponents/CommentsIndex/CommentsIndex'
+import { MdDeleteOutline } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 
 
 export function ConnectionDetailsPage() {
@@ -73,19 +75,23 @@ export function ConnectionDetailsPage() {
         <div className='connections-details-container'>
             <div className='connections-details-body'>
                 <div className='connections-details-header'>
-                    <h1>{connection?.title}</h1>
+                    <div className='connection-details-info'>
+                        <h1>{connection?.title}</h1>
 
-                    <NavLink to={`/users/${connection?.userId}`} className="connections-details-author-link">
-                        <p>{connection?.authorName}</p>
-                    </NavLink>
+                        <NavLink to={`/users/${connection?.userId}`} className="connections-details-author-link">
+                            <p>{connection?.authorName}</p>
+                        </NavLink>
+                    </div>
+                    <div className='connection-details-buttons-container'>
+                        {isOwner && <FaRegEdit className='connection-details-button' onClick={handleUpdate} title='Update' />}
+                        {isOwner && <MdDeleteOutline className='connection-details-button' onClick={handleDelete} title='Delete' />}
+                    </div>
                 </div>
 
                 <div className='connections-details-game-board'>
                     <ConnectionBoard connection={connection} />
                 </div>
 
-                {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
-                {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
                 <div className='connection-details-toggle-comments-button-container'>
                     <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
                 </div>

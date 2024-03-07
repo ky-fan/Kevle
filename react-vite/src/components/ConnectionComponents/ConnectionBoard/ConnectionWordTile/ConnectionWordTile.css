@@ -13,11 +13,21 @@
     height: 100%;
     box-sizing: border-box;
     transition: all 250ms ease;
+    animation: fade-in 500ms;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 100;
+    }
 }
 
 .connections-word-tile:hover {
     background-color: var(--elevation16);
-    color: var(--white);
 }
 
 .connections-word-tile>h2 {

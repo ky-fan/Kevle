@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    animation: fade-in 500ms;
 }
 
 .connections-details-body {
@@ -15,9 +16,35 @@
 .connections-details-header {
     border-bottom: 1px var(--pink) solid;
     margin-bottom: 30px;
+    display: flex;
 }
 
-.connections-details-header>h1 {
+.connection-details-info {
+    width: 75%;
+}
+
+.connection-details-buttons-container {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.connection-details-button {
+    min-width: 35px;
+    height: auto;
+    cursor: pointer;
+    transition: 300ms all ease;
+    margin: 0 5px 20px 5px;
+    color: var(--gray);
+}
+
+.connection-details-button:hover {
+    transform: scale(1.1);
+    color: var(--pink);
+}
+
+.connection-details-info>h1 {
     font-size: 52px;
     margin: 0;
     padding: 20px 0;
@@ -53,8 +80,8 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    padding: 20px;
-    width: 55vw;
+    padding: 40px;
+    width: 100%;
 }
 
 .connection-details-toggle-comments-button-container>button {
@@ -77,5 +104,4 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    padding-top: 20px;
 }

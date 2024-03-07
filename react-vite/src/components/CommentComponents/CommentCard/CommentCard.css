@@ -34,7 +34,7 @@
 }
 
 .comment-card-button {
-    min-width: 30px;
+    min-width: 25px;
     height: auto;
     cursor: pointer;
     transition: 300ms all ease;

@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    animation: fade-in 500ms;
 }
 
 .comments-index-form-container {

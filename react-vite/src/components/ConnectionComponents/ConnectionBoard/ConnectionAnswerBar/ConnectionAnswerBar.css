@@ -3,6 +3,7 @@
     height: 100%;
     display: flex;
     border-radius: 4px;
+    animation: fade-in 2s;
 }
 
 .connection-answer-bar-tile {
@@ -19,6 +20,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .connection-answer-bar-tile>p {
