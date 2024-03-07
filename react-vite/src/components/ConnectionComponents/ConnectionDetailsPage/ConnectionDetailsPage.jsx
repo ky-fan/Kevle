@@ -86,13 +86,12 @@ export function ConnectionDetailsPage() {
 
                 {isOwner && <button onClick={handleUpdate} title='Update'>Update</button>}
                 {isOwner && <button onClick={handleDelete} title='Delete'>Delete</button>}
+                <div className='connection-details-toggle-comments-button-container'>
+                    <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
+                </div>
             </div>
 
-            <div className='connection-details-toggle-comments-button-container'>
-                <button onClick={toggleComments} title='toggleComments'>{showComments ? 'Hide Comments' : 'Show Comments'}</button>
-            </div>
-
-            <div className='.connection-details-comments-container'>
+            <div className='connection-details-comments-container'>
                 {showComments && <CommentsIndex commentsArr={connectionCommentsArr} connectionId={connectionId} />}
             </div>
         </div>
