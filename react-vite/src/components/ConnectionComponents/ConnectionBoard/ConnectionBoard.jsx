@@ -144,6 +144,10 @@ export function ConnectionBoard({ connection }) {
     if (!(gameState.length)) return
     return (
         <div className='connection-board-container'>
+            <div>
+                <p>Create four groups of four!</p>
+                {/* <button onClick={() => setGameState([0, 0, 0, 0])}>Restart</button> */}
+            </div>
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
                 {gameState[0] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={0} />}
