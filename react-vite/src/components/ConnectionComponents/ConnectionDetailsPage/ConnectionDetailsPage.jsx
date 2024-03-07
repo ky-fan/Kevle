@@ -20,6 +20,7 @@ export function ConnectionDetailsPage() {
     const isOwner = (parseInt(user?.id) === connection?.userId)
 
     const [showComments, setShowComments] = useState(false)
+    // const [shuffledArr, setShuffledArr] = useState([])
 
     // Fetch comments thunk must go first (not sure why)
     useEffect(() => {
@@ -45,6 +46,26 @@ export function ConnectionDetailsPage() {
         e.preventDefault()
         setShowComments(!showComments)
     }
+
+    // function shuffle(arr) {
+    //     if (arr) {
+    //         const returnArr = arr.slice(0)
+    //         for (let i = returnArr.length - 1; i > 0; i--) {
+    //             let j = Math.floor(Math.random() * (i + 1))
+    //             let temp = returnArr[i]
+    //             returnArr[i] = returnArr[j]
+    //             returnArr[j] = temp
+    //         }
+    //         return returnArr
+    //     }
+    // }
+
+    // useEffect(() => {
+    //     setShuffledArr(shuffle(connection.answers))
+    // }, [connection])
+
+
+
 
     if (!connection) return
 

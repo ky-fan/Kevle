@@ -2,10 +2,11 @@ import './ConnectionTileRow.css'
 import ConnectionWordTile from '../ConnectionWordTile/ConnectionWordTile'
 
 export function ConnectionTileRow(words, setGuessArr, guessArr) {
-
+    console.log('words', words)
+    if (!words) return
     return (
         <div>
-            {/* {displayArr?.splice(0, 4)?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))} */}
+            {words?.map(word => (<ConnectionWordTile key={word} word={word} setGuessArr={setGuessArr} guessArr={guessArr} />))}
         </div>
     )
 }
