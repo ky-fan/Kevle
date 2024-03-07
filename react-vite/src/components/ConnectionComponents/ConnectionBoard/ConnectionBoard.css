@@ -40,6 +40,11 @@
     box-sizing: border-box;
     font-weight: 600;
     font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.connection-board-button:hover {
+    transform: scale(1.1);
 }
 
 #disabled-connection-button {

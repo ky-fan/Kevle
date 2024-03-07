@@ -12,6 +12,16 @@
     align-items: center;
     height: 100%;
     box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.connections-word-tile:hover {
+    background-color: var(--elevation16);
+    color: var(--white);
+}
+
+.connections-word-tile>h2 {
+    user-select: none;
 }
 
 .connections-word-tile-container {
@@ -22,6 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 250ms ease all;
 }
 
 #connections-word-tile-selected {
