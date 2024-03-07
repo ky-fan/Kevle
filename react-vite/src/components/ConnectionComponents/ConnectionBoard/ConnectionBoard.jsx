@@ -144,7 +144,7 @@ export function ConnectionBoard({ connection }) {
     if (!(gameState.length)) return
     return (
         <div className='connection-board-container'>
-            <div>
+            <div className='connection-board-header'>
                 <p>Create four groups of four!</p>
                 {/* <button onClick={() => setGameState([0, 0, 0, 0])}>Restart</button> */}
             </div>
