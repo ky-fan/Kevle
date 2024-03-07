@@ -49,7 +49,7 @@
     transform: scale(1.1);
 }
 
-.disabled-connection-button {
+#disabled-connection-button {
     pointer-events: none;
     background-color: var(--error);
 }
