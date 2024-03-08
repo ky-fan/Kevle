@@ -36,7 +36,7 @@
     cursor: pointer;
     transition: 300ms all ease;
     margin: 0 5px 20px 5px;
-    color: var(--gray);
+    color: var(--purple);
 }
 
 .connection-details-button:hover {
@@ -92,6 +92,7 @@
     transition: all 300ms ease;
     height: 50px;
     width: 140px;
+    user-select: none;
 }
 
 .connection-details-toggle-comments-button-container>button:hover {

@@ -46,7 +46,7 @@
 }
 
 #connections-word-tile-selected {
-    background: var(--purple);
+    background: var(--dark-purple);
     transform: scale(.98);
     outline: 2px var(--white) solid;
 }

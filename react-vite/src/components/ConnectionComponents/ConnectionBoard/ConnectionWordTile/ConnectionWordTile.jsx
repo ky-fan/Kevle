@@ -3,7 +3,9 @@ import './ConnectionWordTile.css'
 
 export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
 
-    const [isSelected, setIsSelected] = useState(guessArr.includes(word))
+    // const [isSelected, setIsSelected] = useState(guessArr.includes(word))
+
+    let isSelected = guessArr.includes(word)
     const [disableClick, setDisableClick] = useState('')
 
     const handleClick = e => {
@@ -12,15 +14,12 @@ export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
         if (isSelected) {
             const newGuessArr = (guessArr.filter(ele => ele !== word))
             setGuessArr(newGuessArr)
-            setIsSelected(false)
         } else {
             if (guessArr.length !== 4) {
                 setGuessArr(guessArr => [...guessArr, word])
-                setIsSelected(true)
             }
         }
     }
-
 
     useEffect(() => {
         if (guessArr.length === 4 && !(isSelected)) {
