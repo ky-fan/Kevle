@@ -54,7 +54,7 @@ export function ConnectionBoard({ connection }) {
         )
     }, [connection])
 
-    // Updates the displayed elements on re-render
+    // Updates the displayed words on re-render
     useEffect(() => {
         // Check the gameState to see which categories have been solved and thus which words to filter out of the display
 
@@ -141,12 +141,21 @@ export function ConnectionBoard({ connection }) {
         setNumWrongGuesses(guesses)
     }
 
+    const handleReset = e => {
+        e.preventDefault
+        setNumWrongGuesses(0)
+        setGameState([0, 0, 0, 0])
+        setGameStatus('playing')
+        setGuessArr([])
+        // setShuffledArr(shuffle(connection.answers))
+    }
+
     if (!(gameState.length)) return
     return (
         <div className='connection-board-container'>
             <div className='connection-board-header'>
                 <p>Create four groups of four!</p>
-                {/* <button onClick={() => setGameState([0, 0, 0, 0])}>Restart</button> */}
+                <button onClick={handleReset}>Restart</button>
             </div>
             <div className='connection-board-row'>
                 {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
@@ -176,7 +185,7 @@ export function ConnectionBoard({ connection }) {
             </div>
 
             {/* <ConnectionButtons setShuffledArr={setShuffledArr} setGuessArr={setGuessArr} guessArr={guessArr} submitGuess={submitGuess} shuffle={shuffle} answers={connection.answers} gameStatus={gameStatus} /> */}
-        </div>
+        </div >
     )
 }
 
