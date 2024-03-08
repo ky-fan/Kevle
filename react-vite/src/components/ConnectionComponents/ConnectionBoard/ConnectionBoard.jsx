@@ -65,35 +65,6 @@ export function ConnectionBoard({ connection }) {
         setRemainingWords(filteredWordsArr)
     }, [connection, shuffledArr, gameState, answerObj])
 
-    // Check game status
-    useEffect(() => {
-        // Game is won once the final row is solved
-        if (gameState[3] > 0) {
-            setGameStatus('won')
-            alert('YOU WON (This will be replaced by a modal)')
-        }
-
-        // Game is lost when the number of incorrect guesses reaches 4
-        if (numWrongGuesses >= 4) {
-            const unsolvedCategories = [4, 3, 2, 1].filter(num => !(gameState.includes(num)))
-
-            // Iterate through each row in gameState
-            for (let i = 0; i < gameState.length; i++) {
-                // For each unsolved row, remove the next easiest category from the unsolved categories and update gameState to display that category in that row
-                if (gameState[i] === 0) {
-                    const newGameState = gameState
-                    newGameState[i] = unsolvedCategories.pop()
-                    setGameState[newGameState]
-                }
-            }
-            // Clear guess, set game status to lost
-            setGuessArr([])
-            setGameStatus('lost')
-            alert('NEXT TIME (This will be replaced by a modal)')
-            return
-        }
-    }, [gameState, numWrongGuesses])
-
     // Win/loss modals
     // how to play modal
 
@@ -108,15 +79,16 @@ export function ConnectionBoard({ connection }) {
         categoryObj[`category${i}`] = [i, connectionArr[i - 1]].concat(answerObj[i])
     }
 
-    const submitGuess = e => {
-        e.preventDefault()
+    // Stores sets containing each group of answers for comparison to guesses
+    const answerSetObj = {}
+    for (let i = 1; i < 5; i++) {
+        answerSetObj[i] = new Set(answerObj[i])
+    }
+
+    const checkGuess = () => {
         if (!guessArr.length) return
-        // Stores sets containing each group of answers for comparison to guesses
-        const answerSetObj = {}
-        for (let i = 1; i < 5; i++) {
-            answerSetObj[i] = new Set(answerObj[i])
-        }
-        // Iterate through each of the 4 rows to check for completion
+
+        // Check logic: iterate through each of the 4 rows to check for completion
         for (let i = 0; i < 4; i++) {
             // If the current row is incomplete
             if (gameState[i] === 0) {
@@ -131,15 +103,74 @@ export function ConnectionBoard({ connection }) {
 
                         // Clear the guess
                         setGuessArr([])
+
+                        // Game is won once the final row is solved
+                        if (i === 3) {
+                            console.log('check guess', gameState)
+                            setGameStatus('won')
+                            alert('YOU WON (This will be replaced by a modal)')
+                            return
+                        }
                         return
                     }
                 }
             }
         }
-        // Increment the number of incorrect guesses if there's no match
+
+
+        // Handle incorrect guess (no match)
         let guesses = numWrongGuesses + 1
         setNumWrongGuesses(guesses)
+
+        // Lose the game if 4 incorrect guesses
+        if (guesses === 4) {
+            const unsolvedCategories = [4, 3, 2, 1].filter(num => !(gameState.includes(num)))
+            // Iterate through each row in gameState
+            const newGameState = [...gameState]
+            for (let i = 0; i < gameState.length; i++) {
+                // For each unsolved row, remove the next easiest category from the unsolved categories and update gameState to display that category in that row
+                if (gameState[i] === 0) {
+                    newGameState[i] = unsolvedCategories.pop()
+                }
+            }
+            // Display the solved game state (user-solved categories in original places)
+            setGameState(newGameState)
+
+            // Clear guess, game is lost
+            setGuessArr([])
+            setGameStatus('lost')
+            alert('NEXT TIME (This will be replaced by a modal)')
+            return
+        }
     }
+
+    // const submitGuess = e => {
+    //     e.preventDefault()
+
+    //     checkGuess()
+
+    //     // // Game is lost when the number of incorrect guesses reaches 4
+    //     // if (numWrongGuesses >= 4) {
+    //     //     const unsolvedCategories = [4, 3, 2, 1].filter(num => !(gameState.includes(num)))
+
+    //     //     // Iterate through each row in gameState
+    //     //     const newGameState = [...gameState]
+    //     //     for (let i = 0; i < gameState.length; i++) {
+    //     //         // For each unsolved row, remove the next easiest category from the unsolved categories and update gameState to display that category in that row
+    //     //         if (gameState[i] === 0) {
+    //     //             newGameState[i] = unsolvedCategories.pop()
+    //     //         }
+    //     //     }
+    //     //     setGameState(newGameState)
+
+    //     //     // Clear guess, set game status to lost
+    //     //     setGuessArr([])
+    //     //     setGameStatus('lost')
+    //     //     alert('NEXT TIME (This will be replaced by a modal)')
+    //     //     return
+    //     // }
+    //     // return
+    // }
 
     const handleReset = e => {
         e.preventDefault
@@ -181,7 +212,7 @@ export function ConnectionBoard({ connection }) {
             <div className='connection-board-button-container'>
                 <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-button click-swing`} id={gameStatus === 'playing' ? "" : "disabled-connection-button"}>Shuffle</button>
                 <button onClick={() => setGuessArr([])} className={`connection-board-button`} id={guessArr.length > 0 ? "" : "disabled-connection-button"}>Deselect All - bugged</button>
-                <button onClick={submitGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
+                <button onClick={checkGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
             </div>
 
             {/* <ConnectionButtons setShuffledArr={setShuffledArr} setGuessArr={setGuessArr} guessArr={guessArr} submitGuess={submitGuess} shuffle={shuffle} answers={connection.answers} gameStatus={gameStatus} /> */}
