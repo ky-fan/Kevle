@@ -144,34 +144,6 @@ export function ConnectionBoard({ connection }) {
         }
     }
 
-    // const submitGuess = e => {
-    //     e.preventDefault()
-
-    //     checkGuess()
-
-    //     // // Game is lost when the number of incorrect guesses reaches 4
-    //     // if (numWrongGuesses >= 4) {
-    //     //     const unsolvedCategories = [4, 3, 2, 1].filter(num => !(gameState.includes(num)))
-
-    //     //     // Iterate through each row in gameState
-    //     //     const newGameState = [...gameState]
-    //     //     for (let i = 0; i < gameState.length; i++) {
-    //     //         // For each unsolved row, remove the next easiest category from the unsolved categories and update gameState to display that category in that row
-    //     //         if (gameState[i] === 0) {
-    //     //             newGameState[i] = unsolvedCategories.pop()
-    //     //         }
-    //     //     }
-    //     //     setGameState(newGameState)
-
-    //     //     // Clear guess, set game status to lost
-    //     //     setGuessArr([])
-    //     //     setGameStatus('lost')
-    //     //     alert('NEXT TIME (This will be replaced by a modal)')
-    //     //     return
-    //     // }
-    //     // return
-    // }
-
     const handleReset = e => {
         e.preventDefault
         setNumWrongGuesses(0)
