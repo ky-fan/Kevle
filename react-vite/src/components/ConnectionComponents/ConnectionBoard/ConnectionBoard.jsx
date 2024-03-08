@@ -2,6 +2,7 @@ import './ConnectionBoard.css'
 import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 import ConnectionTileRow from './ConnectionTileRow/ConnectionTileRow'
+import { VscDebugRestart } from "react-icons/vsc";
 
 
 export function ConnectionBoard({ connection }) {
@@ -150,45 +151,44 @@ export function ConnectionBoard({ connection }) {
         setGameState([0, 0, 0, 0])
         setGameStatus('playing')
         setGuessArr([])
-        // setShuffledArr(shuffle(connection.answers))
+        setShuffledArr(shuffle(connection.answers))
     }
 
     if (!(gameState.length)) return
     return (
-        <div className='connection-board-container'>
-            <div className='connection-board-header'>
-                <p>Create four groups of four!</p>
-                <button onClick={handleReset}>Restart</button>
+        <div className='connection-board-outside-wrapper'>
+            <div className='connection-board-restart-container'>
+                <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
             </div>
-            <div className='connection-board-row'>
-                {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
-                {gameState[0] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={0} />}
-            </div>
-            <div className='connection-board-row'>
-                {gameState[1] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[1]]} />}
-                {gameState[1] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={1} />}
-            </div>
-            <div className='connection-board-row'>
-                {gameState[2] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[2]]} />}
-                {gameState[2] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={2} />}
-            </div>
-            <div className='connection-board-row'>
-                {gameState[3] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[3]]} />}
-                {gameState[3] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={3} />}
-            </div>
+            <div className='connection-board-container'>
+                <div className='connection-board-row'>
+                    {gameState[0] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[0]]} />}
+                    {gameState[0] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={0} />}
+                </div>
+                <div className='connection-board-row'>
+                    {gameState[1] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[1]]} />}
+                    {gameState[1] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={1} />}
+                </div>
+                <div className='connection-board-row'>
+                    {gameState[2] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[2]]} />}
+                    {gameState[2] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={2} />}
+                </div>
+                <div className='connection-board-row'>
+                    {gameState[3] > 0 && <ConnectionAnswerBar category={categoryObj[`category` + gameState[3]]} />}
+                    {gameState[3] === 0 && <ConnectionTileRow remainingWords={remainingWords} setGuessArr={setGuessArr} guessArr={guessArr} rowIndex={3} />}
+                </div>
 
-            <div className='connection-board-mistakes-container'>
-                <p>Mistakes Remaining: {4 - numWrongGuesses} </p>
-            </div>
+                <div className='connection-board-mistakes-container'>
+                    <p>Mistakes Remaining: {4 - numWrongGuesses} </p>
+                </div>
 
-            <div className='connection-board-button-container'>
-                <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-button click-swing`} id={gameStatus === 'playing' ? "" : "disabled-connection-button"}>Shuffle</button>
-                <button onClick={() => setGuessArr([])} className={`connection-board-button`} id={guessArr.length > 0 ? "" : "disabled-connection-button"}>Deselect All</button>
-                <button onClick={checkGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
-            </div>
-
-            {/* <ConnectionButtons setShuffledArr={setShuffledArr} setGuessArr={setGuessArr} guessArr={guessArr} submitGuess={submitGuess} shuffle={shuffle} answers={connection.answers} gameStatus={gameStatus} /> */}
-        </div >
+                <div className='connection-board-button-container'>
+                    <button onClick={() => setShuffledArr(shuffle(connection.answers))} className={`connection-board-button click-swing`} id={gameStatus === 'playing' ? "" : "disabled-connection-button"}>Shuffle</button>
+                    <button onClick={() => setGuessArr([])} className={`connection-board-button`} id={guessArr.length > 0 ? "" : "disabled-connection-button"}>Deselect All</button>
+                    <button onClick={checkGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
+                </div>
+            </div >
+        </div>
     )
 }
 

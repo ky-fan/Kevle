@@ -43,7 +43,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="modal-error">{errors.email}</p>}
         <label className="login-form-input">
           Password
           <input
@@ -54,10 +54,10 @@ function LoginFormModal() {
           />
         </label>
         <div className="login-form-submit-button-div">
-          {errors.password && <p>{errors.password}</p>}
-          <button type="submit">Log In</button>
+          {errors.password && <p className="modal-error">{errors.password}</p>}
+          <button type="submit" className="modal-button">Log In</button>
         </div>
-        <button className='login-modal-button'
+        <button className='modal-button'
           onClick={() => {
             setEmail('demo@aa.io')
             setPassword('password')

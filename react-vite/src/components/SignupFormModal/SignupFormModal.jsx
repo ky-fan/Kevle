@@ -23,6 +23,20 @@ function SignupFormModal() {
       });
     }
 
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    if (!validateEmail(email)) {
+      return setErrors({
+        email: "Invalid email address"
+      })
+    }
+
     const serverResponse = await dispatch(
       thunkSignup({
         email,
@@ -39,11 +53,11 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className="signup-modal-container">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form onSubmit={handleSubmit} className="signup-form">
+        <label className="signup-form-input">
           Email
           <input
             type="text"
@@ -52,8 +66,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+        {errors.email && <p className="modal-error">{errors.email}</p>}
+        <label className="signup-form-input">
           Username
           <input
             type="text"
@@ -62,8 +76,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        {errors.username && <p className="modal-error">{errors.username}</p>}
+        <label className="signup-form-input">
           Password
           <input
             type="password"
@@ -72,8 +86,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
+        {errors.password && <p className="modal-error">{errors.password}</p>}
+        <label className="signup-form-input">
           Confirm Password
           <input
             type="password"
@@ -82,10 +96,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && <p className="modal-error">{errors.confirmPassword}</p>}
+        <button type="submit" className="modal-button">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react'
 import './ConnectionWordTile.css'
 
 export function ConnectionWordTile({ word, setGuessArr, guessArr }) {
-
-    // const [isSelected, setIsSelected] = useState(guessArr.includes(word))
+    const [disableClick, setDisableClick] = useState('')
 
     let isSelected = guessArr.includes(word)
-    const [disableClick, setDisableClick] = useState('')
 
     const handleClick = e => {
         e.preventDefault()

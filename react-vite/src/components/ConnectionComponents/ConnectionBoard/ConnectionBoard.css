@@ -1,5 +1,5 @@
 .connection-board-container {
-    width: 100%;
+    width: 70%;
     height: 60vh;
     max-width: 1200px;
     max-height: 1000px;
@@ -8,9 +8,24 @@
     flex-direction: column;
 }
 
+.connection-board-restart-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.connection-board-outside-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 .connection-board-header {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .connection-board-header>p {
@@ -31,6 +46,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.connection-board-mistakes-container>p {
+    font-size: 20px;
 }
 
 .connection-board-button-container {

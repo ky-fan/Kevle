@@ -7,6 +7,7 @@ import { ConnectionDetailsPage } from '../components/ConnectionComponents/Connec
 import { ConnectionFormPage } from '../components/ConnectionComponents/ConnectionFormPage/ConnectionFormPage';
 import UserDetailsPage from '../components/UserDetailsPage/UserDetailsPage';
 import SplashPage from '../components/SplashPage/SplashPage';
+import UserConnectionsIndexPage from '../components/UserGameComponents/UserConnectionsIndexPage/UserConnectionsIndexPage';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "connections/:connectionId/update",
         element: <ConnectionFormPage />
+      },
+      {
+        path: "connections/users/:userId",
+        element: <UserConnectionsIndexPage />
       }
     ],
   },
