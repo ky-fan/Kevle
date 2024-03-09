@@ -1,8 +1,10 @@
 .connection-board-container {
-    width: 70%;
-    height: 60vh;
+    width: 60%;
+    height: 60%;
     max-width: 1200px;
     max-height: 1000px;
+    min-height: 600px;
+    min-width: 700px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -62,8 +64,8 @@
 }
 
 .connection-board-button {
-    height: 100px;
-    width: 200px;
+    height: 70px;
+    width: 160px;
     background-color: var(--dark-purple);
     cursor: pointer;
     border: none;
