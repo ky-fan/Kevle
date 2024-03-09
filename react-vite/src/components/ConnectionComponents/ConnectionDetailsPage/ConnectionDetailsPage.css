@@ -93,6 +93,7 @@
     height: 50px;
     width: 140px;
     user-select: none;
+    cursor: pointer;
 }
 
 .connection-details-toggle-comments-button-container>button:hover {

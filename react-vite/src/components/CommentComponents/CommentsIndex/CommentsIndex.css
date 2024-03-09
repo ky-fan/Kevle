@@ -66,6 +66,7 @@
     transition: 300ms all ease;
     box-sizing: border-box;
     margin: 10px 0 0 20px;
+    cursor: pointer;
 }
 
 .comments-index-form-submit-button:hover {

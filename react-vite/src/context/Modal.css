@@ -130,3 +130,14 @@
 .modal-button:hover {
   transform: scale(1.1);
 }
+
+.modal-icon-container {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+}
+
+.modal-button-container {
+  display: flex;
+  justify-content: space-around;
+}

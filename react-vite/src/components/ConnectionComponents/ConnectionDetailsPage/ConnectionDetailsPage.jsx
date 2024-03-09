@@ -8,7 +8,8 @@ import { clearComments, thunkFetchConnectionComments } from '../../../redux/comm
 import CommentsIndex from '../../CommentComponents/CommentsIndex/CommentsIndex'
 import { MdDeleteOutline } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
-
+import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem'
+import DeleteConfirmationModal from '../../DeleteConfirmationModal/DeleteConfirmationModal.jsx/DeleteConfimationModal'
 
 export function ConnectionDetailsPage() {
     const { connectionId } = useParams()
@@ -24,7 +25,6 @@ export function ConnectionDetailsPage() {
     const [showComments, setShowComments] = useState(false)
     // const [shuffledArr, setShuffledArr] = useState([])
 
-    // Fetch comments thunk must go first (not sure why)
     useEffect(() => {
         dispatch(clearComments())
         dispatch(thunkFetchConnectionComments(connectionId))
@@ -36,8 +36,7 @@ export function ConnectionDetailsPage() {
         navigate(`/connections/${connectionId}/update`)
     }
 
-    const handleDelete = (e) => {
-        e.preventDefault()
+    const handleDelete = (connectionId) => {
         dispatch(thunkDeleteConnection(connectionId)).then(() => {
             dispatch(clearConnections())
             navigate('/connections')
@@ -48,26 +47,6 @@ export function ConnectionDetailsPage() {
         e.preventDefault()
         setShowComments(!showComments)
     }
-
-    // function shuffle(arr) {
-    //     if (arr) {
-    //         const returnArr = arr.slice(0)
-    //         for (let i = returnArr.length - 1; i > 0; i--) {
-    //             let j = Math.floor(Math.random() * (i + 1))
-    //             let temp = returnArr[i]
-    //             returnArr[i] = returnArr[j]
-    //             returnArr[j] = temp
-    //         }
-    //         return returnArr
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     setShuffledArr(shuffle(connection.answers))
-    // }, [connection])
-
-
-
 
     if (!connection) return
 
@@ -84,7 +63,8 @@ export function ConnectionDetailsPage() {
                     </div>
                     <div className='connection-details-buttons-container'>
                         {isOwner && <FaRegEdit className='connection-details-button' onClick={handleUpdate} title='Update' />}
-                        {isOwner && <MdDeleteOutline className='connection-details-button' onClick={handleDelete} title='Delete' />}
+                        {isOwner && <OpenModalMenuItem icon={<MdDeleteOutline className='connection-details-button' title='Delete' />} modalComponent={<DeleteConfirmationModal handleDelete={handleDelete} gameId={connectionId} />} />}
+                        {/* {isOwner && <MdDeleteOutline className='connection-details-button' onClick={handleDelete} title='Delete' />} */}
                     </div>
                 </div>
 
