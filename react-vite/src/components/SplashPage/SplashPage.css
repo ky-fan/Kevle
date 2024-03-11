@@ -1,0 +1,39 @@
+.splash-page-container {
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    animation: fade-in 500ms;
+}
+
+.splash-page-body {
+    max-width: 1482px;
+    width: 100%;
+}
+
+.splash-dev-name-icon-div {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.splash-icon {
+    height: 30px;
+    color: var(--cyan);
+    margin: 0 0 0 5px;
+    transition: all 500ms ease;
+    width: 30px;
+}
+
+.splash-icon:hover {
+    transform: scale(1.3);
+}
+
+.splash-icon>path {
+    width: 30px;
+}
+
+.splash-welcome-div {
+    margin: 0 0 10vh 0;
+}

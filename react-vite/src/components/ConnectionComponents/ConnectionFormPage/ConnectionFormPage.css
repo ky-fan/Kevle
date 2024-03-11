@@ -165,4 +165,9 @@
     font-weight: 700;
     font-size: 30px;
     border: none;
+    transition: 500ms all ease;
+}
+
+.connections-form-button:hover {
+    transform: scale(1.1);
 }
