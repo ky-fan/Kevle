@@ -35,7 +35,7 @@
     height: auto;
     cursor: pointer;
     transition: 300ms all ease;
-    margin: 0 5px 20px 5px;
+    margin: 0 5px 20px 15px;
     color: var(--purple);
 }
 

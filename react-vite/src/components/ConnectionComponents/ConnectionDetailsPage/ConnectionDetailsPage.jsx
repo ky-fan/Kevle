@@ -7,9 +7,11 @@ import { ConnectionBoard } from '../ConnectionBoard/ConnectionBoard'
 import { clearComments, thunkFetchConnectionComments } from '../../../redux/comment'
 import CommentsIndex from '../../CommentComponents/CommentsIndex/CommentsIndex'
 import { MdDeleteOutline } from "react-icons/md";
+import { FaRegQuestionCircle } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem'
-import DeleteConfirmationModal from '../../DeleteConfirmationModal/DeleteConfirmationModal.jsx/DeleteConfimationModal'
+import DeleteConfirmationModal from '../../ModalComponents/DeleteConfirmationModal.jsx/DeleteConfimationModal'
+import ConnectionsInfoModal from '../../ModalComponents/ConnectionsInfoModal/ConnectionsInfoModal'
 
 export function ConnectionDetailsPage() {
     const { connectionId } = useParams()
@@ -64,7 +66,7 @@ export function ConnectionDetailsPage() {
                     <div className='connection-details-buttons-container'>
                         {isOwner && <FaRegEdit className='connection-details-button' onClick={handleUpdate} title='Update' />}
                         {isOwner && <OpenModalMenuItem icon={<MdDeleteOutline className='connection-details-button' title='Delete' />} modalComponent={<DeleteConfirmationModal handleDelete={handleDelete} gameId={connectionId} />} />}
-                        {/* {isOwner && <MdDeleteOutline className='connection-details-button' onClick={handleDelete} title='Delete' />} */}
+                        <OpenModalMenuItem icon={<FaRegQuestionCircle className='connection-details-button' title='How to Play' />} modalComponent={<ConnectionsInfoModal />} />
                     </div>
                 </div>
 
