@@ -108,6 +108,7 @@
 .connections-form-category-label {
     font-weight: 700;
     font-size: 22px;
+    margin-bottom: 5px;
 }
 
 .connections-form-category-input-header>input::placeholder {

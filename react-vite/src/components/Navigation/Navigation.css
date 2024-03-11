@@ -60,7 +60,7 @@
 .user-profile-button {
   height: 40px;
   width: 40px;
-  color: var(--yellow);
+  color: var(--green);
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -137,5 +137,5 @@
 }
 
 .nav-logo-subtitle {
-  color: var(--gray);
+  color: var(--white);
 }

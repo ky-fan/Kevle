@@ -47,6 +47,7 @@
 .comments-index-form-user-input-container>h4 {
     margin: 0;
     margin-bottom: 10px;
+    color: var(--purple)
 }
 
 .comments-index-form-lower-container {
