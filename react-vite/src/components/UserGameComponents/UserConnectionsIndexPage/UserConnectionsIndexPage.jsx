@@ -26,7 +26,7 @@ export function UserConnectionsIndexPage() {
         <div className='connections-index-container'>
             <div className='connections-index-body'>
                 <div>
-                    <NavLink to={`/users/${userId}}`}>Back</NavLink>
+                    <NavLink to={`/users/${userId}`}>Back</NavLink>
                 </div>
                 <div className='connections-index-title-container'>
                     <h1>{`${username}'s Connections`}</h1>
