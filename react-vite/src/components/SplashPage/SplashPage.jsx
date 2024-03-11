@@ -9,7 +9,10 @@ export function SplashPage() {
             <div className='splash-page-body'>
                 <div className='splash-welcome-div'>
                     <h1>Welcome to Kevle!</h1>
-                    <h3>A site where you can create and play your own NYT Connections and more! Created using React/Redux and Flask.</h3>
+                    <h3>A site where you can create and play your own NYT Connections and more! <br /><br />
+                        There will be more features coming, but for now, use the nav bar to see the games that people have created and leave a comment! <br /><br />
+                        Signing up will also allow you to make your own games.<br /><br />
+                        Created using React/Redux and Flask.</h3>
                 </div>
                 <div>
                     <h1>Meet the Developer:</h1>
