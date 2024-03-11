@@ -9,14 +9,18 @@ def seed_users():
     kevin = User(
         username='kyfn', email='kyfn@aa.io', password='password')
     cathy = User(
-        username='fillercat', email='fillercat@aa.io', password='password')
+        username='fillercat', email='fillercat@aa.io', password='fillercat')
     changming = User(
         username='cmxu', email='cmxu@aa.io', password='password')
+    NYT = User(
+        username='NYT', email='nyt@aa.io', password='nytpassword'
+    )
 
     db.session.add(demo)
     db.session.add(kevin)
     db.session.add(cathy)
     db.session.add(changming)
+    db.session.add(NYT)
     db.session.commit()
 
 
