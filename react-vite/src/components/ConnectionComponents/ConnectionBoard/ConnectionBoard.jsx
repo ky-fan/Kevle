@@ -5,6 +5,9 @@ import ConnectionTileRow from './ConnectionTileRow/ConnectionTileRow'
 import { VscDebugRestart } from "react-icons/vsc";
 import { FaCircle } from "react-icons/fa";
 
+
+import ConnectionsInfoModal from '../../ModalComponents/ConnectionsInfoModal/ConnectionsInfoModal';
+
 export function ConnectionBoard({ connection }) {
 
     const [livesLeft, setLivesLeft] = useState(4)
@@ -65,10 +68,6 @@ export function ConnectionBoard({ connection }) {
         }
         setRemainingWords(filteredWordsArr)
     }, [connection, shuffledArr, gameState, answerObj])
-
-    // Win/loss modals
-    // how to play modal
-
 
     if (!connection.categories) return
 
@@ -157,6 +156,22 @@ export function ConnectionBoard({ connection }) {
     if (!(gameState.length)) return
     return (
         <div className='connection-board-outside-wrapper'>
+            {/* {(gameStatus === 'won') && (
+                <>
+                    <h1>YOU WON!</h1>
+                    <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
+                </>
+            )}
+
+            {(gameStatus === 'lost') && (
+                <>
+                    <h1>NEXT TIME</h1>
+                    <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
+                </>
+            )}
+
+            {(gameStatus === 'playing') && (
+                <> */}
             <div className='connection-board-restart-container'>
                 <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
             </div>
@@ -190,6 +205,8 @@ export function ConnectionBoard({ connection }) {
                     <button onClick={checkGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
                 </div>
             </div >
+            {/* </>
+            )} */}
         </div>
     )
 }
