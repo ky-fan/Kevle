@@ -1,7 +1,7 @@
 .profile-dropdown {
   position: absolute;
-  top: 4vh;
-  right: 3vw;
+  top: 3vh;
+  right: 2vw;
   list-style-type: none;
 }
 
@@ -29,6 +29,8 @@
   display: flex;
   justify-content: center;
 }
+
+.profile-logout-button {}
 
 .profile-dropdown-guest-item {
   margin-bottom: 8px;

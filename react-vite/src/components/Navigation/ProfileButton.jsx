@@ -49,7 +49,7 @@ function ProfileButton() {
               <li className='profile-dropdown-item'>{user.username}</li>
               <li className='profile-dropdown-item'>{user.email}</li>
               <div className='profile-logout-button-container'>
-                <button onClick={logout} className='profile-logout-button'>Log Out</button>
+                <button onClick={logout} className='profile-logout-button modal-button'>Log Out</button>
               </div>
             </div>
           ) : (

@@ -117,3 +117,9 @@
         transform: rotate(0);
     }
 }
+
+.connection-board-life-counter {
+    margin: 0px 8px;
+    color: var(--pink);
+    height: 100%;
+}

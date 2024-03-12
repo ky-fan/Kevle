@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import ConnectionAnswerBar from './ConnectionAnswerBar/ConnectionAnswerBar'
 import ConnectionTileRow from './ConnectionTileRow/ConnectionTileRow'
 import { VscDebugRestart } from "react-icons/vsc";
-
+import { FaCircle } from "react-icons/fa";
 
 export function ConnectionBoard({ connection }) {
 
-    const [numWrongGuesses, setNumWrongGuesses] = useState(0)
+    const [livesLeft, setLivesLeft] = useState(4)
 
     // Tracks game state, gameState[0] represents first row. If gameState[i] === 0, row is unsolved.
     // If [2,4,0,0], shows incomplete game where 2nd category solved first, 4th category solved second.
@@ -120,11 +120,11 @@ export function ConnectionBoard({ connection }) {
 
 
         // Handle incorrect guess (no match)
-        let guesses = numWrongGuesses + 1
-        setNumWrongGuesses(guesses)
+        let lives = livesLeft - 1
+        setLivesLeft(lives)
 
         // Lose the game if 4 incorrect guesses
-        if (guesses === 4) {
+        if (lives === 0) {
             const unsolvedCategories = [4, 3, 2, 1].filter(num => !(gameState.includes(num)))
             // Iterate through each row in gameState
             const newGameState = [...gameState]
@@ -147,7 +147,7 @@ export function ConnectionBoard({ connection }) {
 
     const handleReset = e => {
         e.preventDefault
-        setNumWrongGuesses(0)
+        setLivesLeft(4)
         setGameState([0, 0, 0, 0])
         setGameStatus('playing')
         setGuessArr([])
@@ -179,7 +179,9 @@ export function ConnectionBoard({ connection }) {
                 </div>
 
                 <div className='connection-board-mistakes-container'>
-                    <p>Mistakes Remaining: {4 - numWrongGuesses} </p>
+                    <p>Mistakes Remaining:</p>
+                    {/* Creating a array with livesLeft elements and mapping to repeat the life element*/}
+                    {[...Array(livesLeft)].map((e, i) => <FaCircle key={i} className='connection-board-life-counter' />)}
                 </div>
 
                 <div className='connection-board-button-container'>
