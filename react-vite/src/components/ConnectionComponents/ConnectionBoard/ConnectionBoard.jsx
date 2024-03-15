@@ -5,8 +5,8 @@ import ConnectionTileRow from './ConnectionTileRow/ConnectionTileRow'
 import { VscDebugRestart } from "react-icons/vsc";
 import { FaCircle } from "react-icons/fa";
 
-
-import ConnectionsInfoModal from '../../ModalComponents/ConnectionsInfoModal/ConnectionsInfoModal';
+import { useModal } from '../../../context/Modal';
+import ConnectionsEndModal from '../../ModalComponents/ConnectionsWinModal/ConnectionsEndModal';
 
 export function ConnectionBoard({ connection }) {
 
@@ -69,6 +69,21 @@ export function ConnectionBoard({ connection }) {
         setRemainingWords(filteredWordsArr)
     }, [connection, shuffledArr, gameState, answerObj])
 
+    // Display win/loss modals
+    const { setModalContent } = useModal();
+    useEffect(() => {
+        if (gameStatus === "won") {
+            setModalContent(<ConnectionsEndModal numGuess={4 + (4 - livesLeft)} didWin={true} />)
+        }
+
+        if (gameStatus === "lost") {
+            setModalContent(<ConnectionsEndModal didWin={false} />)
+        }
+
+    }, [gameStatus, setModalContent, livesLeft])
+
+
+
     if (!connection.categories) return
 
     const connectionArr = connection.categories
@@ -108,7 +123,6 @@ export function ConnectionBoard({ connection }) {
                         if (i === 3) {
                             console.log('check guess', gameState)
                             setGameStatus('won')
-                            alert('YOU WON (This will be replaced by a modal)')
                             return
                         }
                         return
@@ -139,7 +153,6 @@ export function ConnectionBoard({ connection }) {
             // Clear guess, game is lost
             setGuessArr([])
             setGameStatus('lost')
-            alert('NEXT TIME (This will be replaced by a modal)')
             return
         }
     }
@@ -156,22 +169,6 @@ export function ConnectionBoard({ connection }) {
     if (!(gameState.length)) return
     return (
         <div className='connection-board-outside-wrapper'>
-            {/* {(gameStatus === 'won') && (
-                <>
-                    <h1>YOU WON!</h1>
-                    <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
-                </>
-            )}
-
-            {(gameStatus === 'lost') && (
-                <>
-                    <h1>NEXT TIME</h1>
-                    <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
-                </>
-            )}
-
-            {(gameStatus === 'playing') && (
-                <> */}
             <div className='connection-board-restart-container'>
                 <VscDebugRestart onClick={handleReset} className='connection-details-button' title='Restart' />
             </div>
@@ -205,8 +202,6 @@ export function ConnectionBoard({ connection }) {
                     <button onClick={checkGuess} className={`connection-board-button`} id={guessArr.length === 4 ? "" : "disabled-connection-button"}>Submit</button>
                 </div>
             </div >
-            {/* </>
-            )} */}
         </div>
     )
 }

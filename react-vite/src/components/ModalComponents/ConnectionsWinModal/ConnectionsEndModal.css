@@ -1,0 +1,7 @@
+.connections-win-modal-body {
+    display: flex;
+    word-break: break-word;
+    width: 600px;
+    justify-content: center;
+    align-items: center;
+}

@@ -19,7 +19,7 @@ export function SplashPage() {
                     <div className='splash-dev-name-icon-div'>
                         <h2>Kevin Fan</h2>
                         <a href="https://github.com/Kyfan01"><FaGithubSquare className='splash-icon' title='Github' /></a>
-                        {/* <a href="https://www.linkedin.com/in/kevin-fan-20475a162/"><FaLinkedin className='splash-icon' /></a> */}
+                        <a href="https://www.linkedin.com/in/kevin-fan-20475a162/"><FaLinkedin className='splash-icon' /></a>
                     </div>
                 </div>
             </div>
