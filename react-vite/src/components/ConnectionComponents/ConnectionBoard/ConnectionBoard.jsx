@@ -34,6 +34,8 @@ export function ConnectionBoard({ connection }) {
     // Contains answers for each category
     const [answerObj, setAnswerObj] = useState({})
 
+    const [answerSetObj, setAnswerSetObj] = useState({})
+
     // Returns a randomized copy of the input array
     function shuffle(arr) {
         if (arr) {
@@ -59,7 +61,22 @@ export function ConnectionBoard({ connection }) {
                 4: connection.answers?.slice(12, 16)
             }
         )
+
+        setAnswerSetObj(
+            {
+                1: new Set(connection.answers?.slice(0, 4)),
+                2: new Set(connection.answers?.slice(4, 8)),
+                3: new Set(connection.answers?.slice(8, 12)),
+                4: new Set(connection.answers?.slice(12, 16))
+            }
+        )
     }, [connection])
+
+    // Stores sets containing each group of answers for comparison to guesses
+    //  const answerSetObj = {}
+    //  for (let i = 1; i < 5; i++) {
+    //      answerSetObj[i] = new Set(answerObj[i])
+    //  }
 
     // Updates the displayed words on re-render
     useEffect(() => {
@@ -67,23 +84,23 @@ export function ConnectionBoard({ connection }) {
 
         let filteredWordsArr = shuffledArr?.slice(0)
         for (let i = 1; i < 5; i++) {
-            if (gameState.includes(i)) filteredWordsArr = filteredWordsArr.filter(word => !(answerObj[i].includes(word)))
+            if (gameState.includes(i)) filteredWordsArr = filteredWordsArr.filter(word => !(answerSetObj[i].has(word)))
         }
         setRemainingWords(filteredWordsArr)
-    }, [connection, shuffledArr, gameState, answerObj])
+    }, [connection, shuffledArr, gameState, answerSetObj])
 
     // Display win/loss modals
     const { setModalContent } = useModal();
     useEffect(() => {
         if (gameStatus === "won") {
-            setModalContent(<ConnectionsEndModal numGuess={4 + (4 - livesLeft)} didWin={true} guessHistory={guessHistory} />)
+            setModalContent(<ConnectionsEndModal didWin={true} guessHistory={guessHistory} answerSetObj={answerSetObj} />)
         }
 
         if (gameStatus === "lost") {
-            setModalContent(<ConnectionsEndModal didWin={false} guessHistory={guessHistory} />)
+            setModalContent(<ConnectionsEndModal didWin={false} guessHistory={guessHistory} answerSetObj={answerSetObj} />)
         }
 
-    }, [gameStatus, setModalContent, livesLeft, guessHistory])
+    }, [gameStatus, setModalContent, livesLeft, guessHistory, answerSetObj])
 
 
 
@@ -97,17 +114,12 @@ export function ConnectionBoard({ connection }) {
         categoryObj[`category${i}`] = [i, connectionArr[i - 1]].concat(answerObj[i])
     }
 
-    // Stores sets containing each group of answers for comparison to guesses
-    const answerSetObj = {}
-    for (let i = 1; i < 5; i++) {
-        answerSetObj[i] = new Set(answerObj[i])
-    }
+
 
     const checkGuess = () => {
         if (!guessArr.length) return
         // Record guess in history
         setGuessHistory([...guessHistory, [...guessArr]])
-        console.log(guessHistory)
 
         // Check logic: iterate through each of the 4 rows to check for completion
         for (let i = 0; i < 4; i++) {
@@ -170,6 +182,7 @@ export function ConnectionBoard({ connection }) {
         setGameStatus('playing')
         setGuessArr([])
         setShuffledArr(shuffle(connection.answers))
+        setGuessHistory([])
     }
 
     if (!(gameState.length)) return

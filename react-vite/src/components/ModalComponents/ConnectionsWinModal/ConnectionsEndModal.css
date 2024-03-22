@@ -1,7 +1,21 @@
 .connections-win-modal-body {
     display: flex;
+    flex-direction: column;
     word-break: break-word;
     width: 600px;
     justify-content: center;
     align-items: center;
+}
+
+.connections-win-modal-guesses {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 15px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.connections-win-modal-guesses>span {
+    margin-bottom: 8px;
 }
