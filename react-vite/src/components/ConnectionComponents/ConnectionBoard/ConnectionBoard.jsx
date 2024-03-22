@@ -22,6 +22,9 @@ export function ConnectionBoard({ connection }) {
     // Selected words for each guess, need four words to submit
     const [guessArr, setGuessArr] = useState([])
 
+    // Tracks guess history to show at end of game
+    const [guessHistory, setGuessHistory] = useState([])
+
     // Contains the randomized answers
     const [shuffledArr, setShuffledArr] = useState([])
 
@@ -73,14 +76,14 @@ export function ConnectionBoard({ connection }) {
     const { setModalContent } = useModal();
     useEffect(() => {
         if (gameStatus === "won") {
-            setModalContent(<ConnectionsEndModal numGuess={4 + (4 - livesLeft)} didWin={true} />)
+            setModalContent(<ConnectionsEndModal numGuess={4 + (4 - livesLeft)} didWin={true} guessHistory={guessHistory} />)
         }
 
         if (gameStatus === "lost") {
-            setModalContent(<ConnectionsEndModal didWin={false} />)
+            setModalContent(<ConnectionsEndModal didWin={false} guessHistory={guessHistory} />)
         }
 
-    }, [gameStatus, setModalContent, livesLeft])
+    }, [gameStatus, setModalContent, livesLeft, guessHistory])
 
 
 
@@ -102,6 +105,9 @@ export function ConnectionBoard({ connection }) {
 
     const checkGuess = () => {
         if (!guessArr.length) return
+        // Record guess in history
+        setGuessHistory([...guessHistory, [...guessArr]])
+        console.log(guessHistory)
 
         // Check logic: iterate through each of the 4 rows to check for completion
         for (let i = 0; i < 4; i++) {
