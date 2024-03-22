@@ -56,7 +56,7 @@ export function ConnectionsEndModal({ didWin, guessHistory, answerSetObj }) {
                 <p>
                     <span>
                         {/* {didWin && <span>{`You won this game in ${numGuess} guesses!`}<br /><br /></span>} */}
-                        Click on the reset button in the top right to play again, the share button to copy your guesses into your clipboard, or click on the &quot;See More&quot; to see more Connections Games.<br /><br />
+                        Click on the reset button in the top right to play again or click on the &quot;See More&quot; to see more Connections Games.<br /><br />
                     </span>
                 </p>
             </div>
