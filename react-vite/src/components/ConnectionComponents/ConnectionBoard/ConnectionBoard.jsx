@@ -149,7 +149,6 @@ export function ConnectionBoard({ connection }) {
             }
         }
 
-
         // Handle incorrect guess (no match)
         let lives = livesLeft - 1
         setLivesLeft(lives)
