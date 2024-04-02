@@ -50,8 +50,8 @@ export function ConnectionBoard({ connection }) {
         }
     }
 
-    // Initialize a shuffled array to be stored in state
     useEffect(() => {
+        // Initialize a shuffled array to be stored in state
         setShuffledArr(shuffle(connection.answers))
         setAnswerObj(
             {
@@ -62,6 +62,7 @@ export function ConnectionBoard({ connection }) {
             }
         )
 
+        // Stores sets containing each group of answers for comparison to guesses
         setAnswerSetObj(
             {
                 1: new Set(connection.answers?.slice(0, 4)),
@@ -72,7 +73,6 @@ export function ConnectionBoard({ connection }) {
         )
     }, [connection])
 
-    // Stores sets containing each group of answers for comparison to guesses
     //  const answerSetObj = {}
     //  for (let i = 1; i < 5; i++) {
     //      answerSetObj[i] = new Set(answerObj[i])

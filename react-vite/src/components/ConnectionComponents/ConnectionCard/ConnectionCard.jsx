@@ -14,7 +14,10 @@ export function ConnectionCard({ connection }) {
                 <NavLink to={`/connections/${connection.id}`} className="connection-card-link">
                     <p className='connection-card-title'>{connection?.title}</p>
                 </NavLink>
-                <NavLink to={`/users/${connection.userId}`} className="connection-card-link">
+                {/* <NavLink to={`/users/${connection.userId}`} className="connection-card-link">
+                    <p className='connection-card-author'>{connection?.authorName}</p>
+                </NavLink> */}
+                <NavLink to={`/connections/users/${connection.userId}`} className="connection-card-link">
                     <p className='connection-card-author'>{connection?.authorName}</p>
                 </NavLink>
             </div>
